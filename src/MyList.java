@@ -7,5 +7,8 @@ public interface MyList<E> {
     int indexOf(E value);
     boolean add(int index, E value);
     E set(int index, E value);
+    boolean contains(E value);
+    boolean isEmpty();
+    void clear();
 
 }

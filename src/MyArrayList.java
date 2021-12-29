@@ -1,16 +1,16 @@
 
 import java.util.Arrays;
 
-public class MyArrayList<E> implements MyList<E>{
+public class MyArrayList<E> implements MyList<E> {
 
-    private static final int DEFAULT_CAPACITY= 10;
+    private static final int DEFAULT_CAPACITY = 10;
     private E[] arrayValue;
-    private int arrayValueIndex= 0;
-    private int capacity=0;
+    private int arrayValueIndex = 0;
+    private int capacity = 0;
     private double filling = 0.7;
 
     public MyArrayList() {
-        this.capacity=DEFAULT_CAPACITY;
+        this.capacity = DEFAULT_CAPACITY;
         arrayValue = (E[]) new Object[capacity];
     }
 
@@ -35,12 +35,12 @@ public class MyArrayList<E> implements MyList<E>{
 
     @Override
     public String toString() {
-        String result = "["+arrayValue[0];
+        String result = "[" + arrayValue[0];
 
-        for (int i =1; i<arrayValueIndex;i++){
-            result+=", "+ arrayValue[i];
+        for (int i = 1; i < arrayValueIndex; i++) {
+            result += ", " + arrayValue[i];
         }
-        result+="]";
+        result += "]";
         return result;
 
 
@@ -48,29 +48,29 @@ public class MyArrayList<E> implements MyList<E>{
 
     @Override
     public boolean add(E value) {
-        if(arrayValueIndex<capacity*filling){
-            arrayValue[arrayValueIndex]=value;
+        if (arrayValueIndex < capacity * filling) {
+            arrayValue[arrayValueIndex] = value;
             arrayValueIndex++;
             return true;
-        }else {
+        } else {
             increaseCapacity();
-            arrayValue[arrayValueIndex]=value;
+            arrayValue[arrayValueIndex] = value;
             return true;
         }
     }
 
     private void increaseCapacity() {
-        capacity= (int) capacity*3/2;
-        arrayValue= Arrays.copyOf(arrayValue,capacity);
+        capacity = (int) capacity * 3 / 2;
+        arrayValue = Arrays.copyOf(arrayValue, capacity);
     }
 
     @Override
     public boolean remove(int index) {
-        if(index<0||index>=arrayValueIndex){
+        if (index < 0 || index >= arrayValueIndex) {
             throw new IndexOutOfBoundsException();
         }
-        for (int i = index+1; i<arrayValueIndex;i++){
-            arrayValue[i-1]=arrayValue[i];
+        for (int i = index + 1; i < arrayValueIndex; i++) {
+            arrayValue[i - 1] = arrayValue[i];
         }
         arrayValueIndex--;
         return true;
@@ -83,21 +83,23 @@ public class MyArrayList<E> implements MyList<E>{
 
     @Override
     public boolean remove(E value) {
-        int index= -1;
-        for (int i=0; i<arrayValueIndex;i++){
-            if(value.equals(arrayValue[i])){
-                index=i;
+        int index = -1;
+        for (int i = 0; i < arrayValueIndex; i++) {
+            if (value.equals(arrayValue[i])) {
+                index = i;
                 break;
             }
         }
-        if (index!=-1){remove(index);
-        return true;}
+        if (index != -1) {
+            remove(index);
+            return true;
+        }
         return false;
     }
 
     @Override
     public E get(int index) {
-        if(index<0||index>=arrayValueIndex){
+        if (index < 0 || index >= arrayValueIndex) {
             throw new IndexOutOfBoundsException();
         }
         return arrayValue[index];
@@ -105,39 +107,63 @@ public class MyArrayList<E> implements MyList<E>{
 
     @Override
     public int indexOf(E value) {
-        if(value!=null){
-            for (int i=0;i<arrayValueIndex;i++){
-                if (arrayValue[i].equals(value)){
+        if (value != null) {
+            for (int i = 0; i < arrayValueIndex; i++) {
+                if (arrayValue[i].equals(value)) {
                     return i;
                 }
-            }return -1;
+            }
+            return -1;
         }
         return -1;
     }
 
     @Override
     public boolean add(int index, E value) {
-        if(index<0||index>arrayValueIndex){
+        if (index < 0 || index > arrayValueIndex) {
             throw new IndexOutOfBoundsException();
         }
-        if(arrayValueIndex>=capacity* filling){
+        if (arrayValueIndex >= capacity * filling) {
             increaseCapacity();
-            }
-            for (int i = arrayValueIndex; i>index;i--){
-                arrayValue[i]=arrayValue[i-1];
         }
-            arrayValue[index]=value;
-            arrayValueIndex++;
+        for (int i = arrayValueIndex; i > index; i--) {
+            arrayValue[i] = arrayValue[i - 1];
+        }
+        arrayValue[index] = value;
+        arrayValueIndex++;
         return true;
     }
 
     @Override
     public E set(int index, E value) {
-        if(index<0||index>=arrayValueIndex){
+        if (index < 0 || index >= arrayValueIndex) {
             throw new IndexOutOfBoundsException();
         }
-        E oldValue=arrayValue[index];
-        arrayValue[index]=value;
+        E oldValue = arrayValue[index];
+        arrayValue[index] = value;
         return oldValue;
+    }
+
+    @Override
+    public boolean contains(E value) {
+        if (value != null) {
+            for (int i = 0; i < arrayValueIndex; i++) {
+                if (arrayValue[i].equals(value)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return arrayValueIndex == 0;
+    }
+
+    @Override
+    public void clear() {
+        arrayValueIndex = 0;
+        arrayValue=(E[]) new Object[capacity];
     }
 }

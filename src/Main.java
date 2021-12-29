@@ -14,6 +14,10 @@ public class Main {
         System.out.println(myList);
         System.out.println(myList.set(3,"Svetlana"));
         System.out.println(myList);
+        System.out.println(myList.contains("Alex"));
+        System.out.println(myList.isEmpty());
+        myList.clear();
+        System.out.println(myList);
 
     }
 }
