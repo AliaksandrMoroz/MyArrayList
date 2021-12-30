@@ -1,12 +1,13 @@
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Main {
     public static void main(String[] args) {
-//        MyList<String> myList = new MyArrayList<>();
-//        myList.add("Alex");
-//        myList.add("Vasya");
-//        myList.add("Yarik");
-//        myList.add("Vitya");
+        MyList<String> myList = new MyArrayList<>();
+        myList.add("Alex");
+        myList.add("Vasya");
+        myList.add("Yarik");
+        myList.add("Vitya");
 //        System.out.println(myList);
 //
 //
@@ -22,19 +23,43 @@ public class Main {
 //        myList.clear();
 //        System.out.println(myList);
 
-        MyArrayList<Integer> myList = new MyArrayList<>();
+        MyArrayList<Person> personList = new MyArrayList<Person>();
+        personList.add(new Person("Alex"));
+        personList.add(new Person("Victor"));
+        personList.add(new Person("Vasilii"));
+        personList.add(new Person("Yaroslav"));
+        personList.add(new Person("Anna"));
+        personList.add(new Person("Kira"));
+        personList.add(new Person("Yura"));
+        personList.add(new Person("Richard"));
+        personList.add(new Person("hura"));
+        personList.add(new Person("Yura"));
+        personList.add(new Person("fura"));
+        personList.add(new Person("sura"));
+        personList.add(new Person("Aura"));
 
-        myList.add(1);
-        myList.add(8);
-        myList.add(15);
-        myList.add(20);
-        myList.add(4);
+        System.out.println(personList);
 
-        System.out.println(myList);
+        personList.sortPerson();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println(personList);
 
-        MyArrayList.BubbleSort bubbleSort = new MyArrayList.BubbleSort();
-        bubbleSort.BubbleSortMethod(myList);
-        System.out.println(myList);
+//
+//        MyArrayList<Integer> myList = new MyArrayList<>();
+//
+//        myList.add(1);
+//        myList.add(8);
+//        myList.add(15);
+//        myList.add(20);
+//        myList.add(4);
+//
+//        System.out.println(myList);
+//
+//        MyArrayList.BubbleSort bubbleSort = new MyArrayList.BubbleSort();
+//        bubbleSort.bubbleSortMethod(myList);
+//        System.out.println(myList);
 
         /* От Вити, кароч, пришлось делать костыль, т.к. чтоб создать метод sort(), должны быть статическими методы size(), get(), set().
          * Поэтому, я пошел с помощью внутренних классов, но вот проблема небольшая осталась.
