@@ -166,4 +166,25 @@ public class MyArrayList<E> implements MyList<E> {
         arrayValueIndex = 0;
         arrayValue=(E[]) new Object[capacity];
     }
+
+    @Override
+    public void sort() {
+        BubbleSort bubbleSort = new BubbleSort();
+//        bubbleSort.BubbleSortMethod();
+    }
+
+    public static class BubbleSort {
+        public void BubbleSortMethod(MyArrayList<Integer> myArrayList) {
+            for( int i = 1; i < myArrayList.size(); i++) {
+                for( int j = 0; j < myArrayList.size() -1; j++) {
+                    if( myArrayList.get(j) > myArrayList.get(j+1)) {
+                        int temp = (int) myArrayList.get(j);
+                        myArrayList.set(j, myArrayList.get(j+1));
+                        myArrayList.set(j+1, temp);
+                    }
+                }
+            }
+        }
+    }
+
 }

@@ -10,5 +10,6 @@ public interface MyList<E> {
     boolean contains(E value);
     boolean isEmpty();
     void clear();
+    void sort();
 
 }
