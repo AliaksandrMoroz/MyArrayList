@@ -9,7 +9,6 @@ public class MyArrayList<E> implements MyList<E> {
     private E[] arrayValue;
     private int arrayValueIndex = 0;
     private int capacity = 0;
-    private double filling = 0.8;
 
     public MyArrayList() {
         this.capacity = DEFAULT_CAPACITY;
@@ -21,26 +20,6 @@ public class MyArrayList<E> implements MyList<E> {
         arrayValue = (E[]) new Object[capacity];
     }
 
-    public MyArrayList(int capacity, double volume) {
-
-        if(capacity<0||volume<0){
-            throw new IndexOutOfBoundsException();
-        }
-        this.capacity = capacity;
-        this.filling = volume;
-        arrayValue = (E[]) new Object[capacity];
-    }
-
-    public double getFilling() {
-        return filling;
-    }
-
-    public void setFilling(double filling) {
-        if(filling<0){
-
-        }
-        this.filling = filling;
-    }
 
     @Override
     public String toString() {
@@ -57,19 +36,23 @@ public class MyArrayList<E> implements MyList<E> {
 
     @Override
     public boolean add(E value) {
-        if (arrayValueIndex < capacity * filling) {
-            arrayValue[arrayValueIndex] = value;
-            arrayValueIndex++;
-            return true;
+        if (value == null) {
+            throw new NullPointerException();
         } else {
-            increaseCapacity();
-            arrayValue[arrayValueIndex] = value;
-            return true;
+
+            if (arrayValueIndex < capacity) {
+                arrayValue[arrayValueIndex] = value;
+                arrayValueIndex++;
+                return true;
+            } else {
+                increaseCapacity();
+                arrayValue[arrayValueIndex] = value;
+                return true;
+            }
         }
     }
-
     private void increaseCapacity() {
-        capacity = (int) capacity * 3 / 2;
+        capacity *= 3;
         arrayValue = Arrays.copyOf(arrayValue, capacity);
     }
 
@@ -92,6 +75,9 @@ public class MyArrayList<E> implements MyList<E> {
 
     @Override
     public boolean remove(E value) {
+        if(value==null){
+            throw new NullPointerException();
+        }
         int index = -1;
         for (int i = 0; i < arrayValueIndex; i++) {
             if (value.equals(arrayValue[i])) {
@@ -132,7 +118,10 @@ public class MyArrayList<E> implements MyList<E> {
         if (index < 0 || index > arrayValueIndex) {
             throw new IndexOutOfBoundsException();
         }
-        if (arrayValueIndex >= capacity * filling) {
+        if(value==null){
+            throw new NullPointerException();
+        }
+        if (arrayValueIndex >= capacity) {
             increaseCapacity();
         }
         for (int i = arrayValueIndex; i > index; i--) {
@@ -147,6 +136,9 @@ public class MyArrayList<E> implements MyList<E> {
     public E set(int index, E value) {
         if (index < 0 || index >= arrayValueIndex) {
             throw new IndexOutOfBoundsException();
+        }
+        if(value==null){
+            throw new NullPointerException();
         }
         E oldValue = arrayValue[index];
         arrayValue[index] = value;

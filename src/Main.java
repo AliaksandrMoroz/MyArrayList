@@ -3,11 +3,11 @@ import java.util.Comparator;
 
 public class Main {
     public static void main(String[] args) {
-        MyList<String> myList = new MyArrayList<>();
-        myList.add("Alex");
-        myList.add("Vasya");
-        myList.add("Yarik");
-        myList.add("Vitya");
+//        MyList<String> myList = new MyArrayList<>();
+//        myList.add("Alex");
+//        myList.add("Vasya");
+//        myList.add("Yarik");
+//        myList.add("Vitya");
 //        System.out.println(myList);
 //
 //
@@ -38,6 +38,7 @@ public class Main {
         personList.add(new Person("sura"));
         personList.add(new Person("Aura"));
 
+
         System.out.println(personList);
 
         personList.sortPerson();
@@ -45,6 +46,7 @@ public class Main {
         System.out.println();
         System.out.println();
         System.out.println(personList);
+
 
 //
 //        MyArrayList<Integer> myList = new MyArrayList<>();
