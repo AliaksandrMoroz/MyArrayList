@@ -1,17 +1,22 @@
-public class Person {
-    private  int id;
-    private String name;
+import java.util.Objects;
 
-    public static int coint=1;
+public class Person {
+    private final int id;
+    private final String name;
+
+    public static int count = 1;
 
     public Person(String name) {
-        this.id=coint++;
+        this.id = count++;
         this.name = name;
     }
 
-
     public String getName() {
         return name;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override
@@ -22,7 +27,7 @@ public class Person {
         Person person = (Person) o;
 
         if (id != person.id) return false;
-        return name != null ? name.equals(person.name) : person.name == null;
+        return Objects.equals(name, person.name);
     }
 
     @Override
@@ -37,17 +42,6 @@ public class Person {
         return "Person{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                '}'+"\n";
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int compareTo(Person o) {
-//        return this.id-o.id;
-//        return this.name.length()-o.name.length();
-        return this.name.compareToIgnoreCase(o.name);
-
+                '}' + "\n";
     }
 }

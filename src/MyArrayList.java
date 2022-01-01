@@ -2,7 +2,6 @@
 import java.util.Arrays;
 
 
-
 public class MyArrayList<E> implements MyList<E> {
 
     private static final int DEFAULT_CAPACITY = 10;
@@ -51,6 +50,7 @@ public class MyArrayList<E> implements MyList<E> {
             }
         }
     }
+
     private void increaseCapacity() {
         capacity *= 3;
         arrayValue = Arrays.copyOf(arrayValue, capacity);
@@ -75,7 +75,7 @@ public class MyArrayList<E> implements MyList<E> {
 
     @Override
     public boolean remove(E value) {
-        if(value==null){
+        if (value == null) {
             throw new NullPointerException();
         }
         int index = -1;
@@ -118,7 +118,7 @@ public class MyArrayList<E> implements MyList<E> {
         if (index < 0 || index > arrayValueIndex) {
             throw new IndexOutOfBoundsException();
         }
-        if(value==null){
+        if (value == null) {
             throw new NullPointerException();
         }
         if (arrayValueIndex >= capacity) {
@@ -137,7 +137,7 @@ public class MyArrayList<E> implements MyList<E> {
         if (index < 0 || index >= arrayValueIndex) {
             throw new IndexOutOfBoundsException();
         }
-        if(value==null){
+        if (value == null) {
             throw new NullPointerException();
         }
         E oldValue = arrayValue[index];
@@ -165,7 +165,7 @@ public class MyArrayList<E> implements MyList<E> {
     @Override
     public void clear() {
         arrayValueIndex = 0;
-        arrayValue=(E[]) new Object[capacity];
+        arrayValue = (E[]) new Object[capacity];
     }
 
     @Override
@@ -173,34 +173,58 @@ public class MyArrayList<E> implements MyList<E> {
         BubbleSort bubbleSort = new BubbleSort();
 //        bubbleSort.bubbleSortMethod();
     }
-    public void sortPerson() {
-        Person[] personMyList= new Person[this.arrayValueIndex];
-        for (int i=0;i<this.arrayValueIndex;i++){
-            personMyList[i]=(Person) this.arrayValue[i];
+
+//    public void sortPersonByName() {
+//        Person[] personMyList = new Person[this.arrayValueIndex];
+//        for (int i = 0; i < this.arrayValueIndex; i++) {
+//            personMyList[i] = (Person) this.arrayValue[i];
+//        }
+//
+//        for (int i = 1; i < personMyList.length; i++) {
+//            for (int k = 0; k < personMyList.length - 1; k++) {
+//                if (personMyList[i].getName().compareToIgnoreCase(personMyList[k].getName()) < 0) {
+//                    Person temp = personMyList[i];
+//                    personMyList[i] = (personMyList[k]);
+//                    personMyList[k] = temp;
+//                }
+//            }
+//        }
+//        for (int i = 0; i < this.arrayValueIndex; i++) {
+//            arrayValue[i] = (E) personMyList[i];
+//        }
+//    }
+
+    public void sortPersonByName() {
+        E[] personMyList =(E[]) new Object[this.arrayValueIndex];
+        for (int i = 0; i < this.arrayValueIndex; i++) {
+            personMyList[i] = this.arrayValue[i];
+
+            System.out.println(personMyList.getClass().getName());
         }
 
         for (int i = 1; i < personMyList.length; i++) {
-            for (int k = 0; k < personMyList.length-1; k++) {
-                if (personMyList[i].getName().compareToIgnoreCase(personMyList[k].getName()) < 0) {
-                    Person temp = personMyList[i];
-                    personMyList[i]=( personMyList[k]);
-                    personMyList[k]= temp;
+            for (int k = 0; k < personMyList.length - 1; k++) {
+                if (personMyList[i].getClass().getName().compareToIgnoreCase(personMyList[k].getClass().getName()) < 0) {
+
+                    E temp = personMyList[i];
+                    personMyList[i] = (personMyList[k]);
+                    personMyList[k] = temp;
                 }
             }
         }
-        for (int i=0;i<this.arrayValueIndex;i++){
-            arrayValue[i]= (E) personMyList[i];
+        for (int i = 0; i < this.arrayValueIndex; i++) {
+            arrayValue[i] = (E) personMyList[i];
         }
     }
 
     public static class BubbleSort {
         public void bubbleSortMethod(MyArrayList<Integer> myArrayList) {
-            for( int i = 1; i < myArrayList.size(); i++) {
-                for( int j = 0; j < myArrayList.size() -1; j++) {
-                    if( myArrayList.get(j) > myArrayList.get(j+1)) {
+            for (int i = 1; i < myArrayList.size(); i++) {
+                for (int j = 0; j < myArrayList.size() - 1; j++) {
+                    if (myArrayList.get(j) > myArrayList.get(j + 1)) {
                         int temp = (int) myArrayList.get(j);
-                        myArrayList.set(j, myArrayList.get(j+1));
-                        myArrayList.set(j+1, temp);
+                        myArrayList.set(j, myArrayList.get(j + 1));
+                        myArrayList.set(j + 1, temp);
                     }
                 }
             }
