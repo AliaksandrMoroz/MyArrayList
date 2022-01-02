@@ -11,5 +11,6 @@ public interface MyList<E> {
     boolean isEmpty();
     void clear();
     void sort();
+    void sortByToString();
 
 }
