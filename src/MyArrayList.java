@@ -1,4 +1,3 @@
-
 import java.util.Arrays;
 
 
@@ -26,7 +25,7 @@ public class MyArrayList<E> implements MyList<E> {
     }
 
     @Override
-    public void add(E value) {
+    public void add(E value) { // изменения
 
         if (value == null) {
             throw new NullPointerException();

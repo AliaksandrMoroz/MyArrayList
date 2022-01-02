@@ -16,7 +16,6 @@ public class Main {
         System.out.println(integerMyArrayList);
         System.out.println();
 
-
         MyList<Double> doubleMyArrayList = new MyArrayList<>();
 
         doubleMyArrayList.add(1.2);
@@ -62,7 +61,5 @@ public class Main {
         personList.add(new Person(8, "Dteve"));
 
         System.out.println(personList);
-
-
     }
 }
