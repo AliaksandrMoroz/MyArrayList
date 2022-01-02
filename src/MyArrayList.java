@@ -168,15 +168,8 @@ public class MyArrayList<E> implements MyList<E> {
         arrayValue = (E[]) new Object[capacity];
     }
 
-    @Override
-    public void sort() {
-        BubbleSort bubbleSort = new BubbleSort();
-//        bubbleSort.bubbleSortMethod();
-    }
 
     public void sortByToString() {
-        if(this.arrayValue[0].getClass()!= Number.class){
-        }
         E[] personMyList = (E[]) new Object[this.arrayValueIndex];
         for (int i = 0; i < this.arrayValueIndex; i++) {
             personMyList[i] = (E) this.arrayValue[i];
@@ -196,31 +189,7 @@ public class MyArrayList<E> implements MyList<E> {
         }
     }
 
-//    public void sortPersonByName() {
-//        E[] personMyList =(E[]) new Object[this.arrayValueIndex];
-//        for (int i = 0; i < this.arrayValueIndex; i++) {
-//            personMyList[i] = this.arrayValue[i];
-//
-//            System.out.println(personMyList.getClass().getName());
-//        }
-//
-//        for (int i = 1; i < personMyList.length; i++) {
-//            for (int k = 0; k < personMyList.length - 1; k++) {
-//                if (personMyList[i].getClass().getName().compareToIgnoreCase(personMyList[k].getClass().getName()) < 0) {
-//
-//                    E temp = personMyList[i];
-//                    personMyList[i] = (personMyList[k]);
-//                    personMyList[k] = temp;
-//                }
-//            }
-//        }
-//        for (int i = 0; i < this.arrayValueIndex; i++) {
-//            arrayValue[i] = (E) personMyList[i];
-//        }
-//    }
-
-    public static class BubbleSort {
-        public void bubbleSortMethod(MyList<Integer> myArrayList) {
+        public static void bubbleSortMethod(MyList<Integer> myArrayList) {
             for (int i = 1; i < myArrayList.size(); i++) {
                 for (int j = 0; j < myArrayList.size() - 1; j++) {
                     if (myArrayList.get(j) > myArrayList.get(j + 1)) {
@@ -233,4 +202,4 @@ public class MyArrayList<E> implements MyList<E> {
         }
     }
 
-}
+

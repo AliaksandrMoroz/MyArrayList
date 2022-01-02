@@ -1,13 +1,13 @@
 import java.util.Objects;
 
-public class Person implements Comparable<Person> {
+public class Person {
     private final int id;
     private final String name;
 
     public static int count = 1;
 
-    public Person(int id, String name) {
-        this.id = id;
+    public Person( String name) {
+        this.id = count++;
         this.name = name;
     }
 
@@ -19,10 +19,6 @@ public class Person implements Comparable<Person> {
         return id;
     }
 
-    @Override
-    public int compareTo(Person o) {
-        return (this.name).compareTo(o.name);
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -44,6 +40,6 @@ public class Person implements Comparable<Person> {
 
     @Override
     public String toString() {
-        return "Person{" + "id = " + id + ", name = '" + name + '\'' + '}';
+        return "Person{ name = '" + name + '\'' + '}';
     }
 }
