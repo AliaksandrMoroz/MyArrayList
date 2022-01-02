@@ -175,6 +175,8 @@ public class MyArrayList<E> implements MyList<E> {
     }
 
     public void sortByToString() {
+        if(this.arrayValue[0].getClass()!= Number.class){
+        }
         E[] personMyList = (E[]) new Object[this.arrayValueIndex];
         for (int i = 0; i < this.arrayValueIndex; i++) {
             personMyList[i] = (E) this.arrayValue[i];
