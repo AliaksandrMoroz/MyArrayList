@@ -218,7 +218,7 @@ public class MyArrayList<E> implements MyList<E> {
 //    }
 
     public static class BubbleSort {
-        public void bubbleSortMethod(MyArrayList<Integer> myArrayList) {
+        public void bubbleSortMethod(MyList<Integer> myArrayList) {
             for (int i = 1; i < myArrayList.size(); i++) {
                 for (int j = 0; j < myArrayList.size() - 1; j++) {
                     if (myArrayList.get(j) > myArrayList.get(j + 1)) {

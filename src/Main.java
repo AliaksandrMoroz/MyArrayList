@@ -60,12 +60,12 @@ public class Main {
         integerMyArrayList.add(4);
 
         System.out.println(integerMyArrayList);
-        integerMyArrayList.sortByToString();
-        System.out.println(integerMyArrayList);
-
-//        MyArrayList.BubbleSort bubbleSort = new MyArrayList.BubbleSort();
-//        bubbleSort.bubbleSortMethod(integerMyArrayList);
+//        integerMyArrayList.sortByToString();
 //        System.out.println(integerMyArrayList);
+
+        MyArrayList.BubbleSort bubbleSort = new MyArrayList.BubbleSort();
+        bubbleSort.bubbleSortMethod(integerMyArrayList);
+        System.out.println(integerMyArrayList);
 
 
     }
