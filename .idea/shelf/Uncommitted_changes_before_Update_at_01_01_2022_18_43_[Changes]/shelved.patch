@@ -1,0 +1,28 @@
+Index: src/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.ArrayList;\r\n\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n//        MyList<String> myList = new MyArrayList<>();\r\n//        myList.add(\"Alex\");\r\n//        myList.add(\"Vasya\");\r\n//        myList.add(\"Yarik\");\r\n//        myList.add(\"Vitya\");\r\n//        System.out.println(myList);\r\n//\r\n//\r\n//\r\n//        System.out.println(myList);\r\n//        System.out.println(myList.get(1));\r\n//        System.out.println(myList.add(0,\"Adil\"));\r\n//        System.out.println(myList);\r\n//        System.out.println(myList.set(3,\"Svetlana\"));\r\n//        System.out.println(myList);\r\n//        System.out.println(myList.contains(\"Alex\"));\r\n//        System.out.println(myList.isEmpty());\r\n//        myList.clear();\r\n//        System.out.println(myList);\r\n\r\n        MyArrayList<Integer> myList = new MyArrayList<>();\r\n\r\n        myList.add(1);\r\n        myList.add(8);\r\n        myList.add(15);\r\n        myList.add(20);\r\n        myList.add(4);\r\n\r\n        System.out.println(myList);\r\n\r\n        MyArrayList.BubbleSort bubbleSort = new MyArrayList.BubbleSort();\r\n        bubbleSort.BubbleSortMethod(myList);\r\n        System.out.println(myList);\r\n\r\n        /* От Вити, кароч, пришлось делать костыль, т.к. чтоб создать метод sort(), должны быть статическими методы size(), get(), set().\r\n         * Поэтому, я пошел с помощью внутренних классов, но вот проблема небольшая осталась.\r\n         * Суть: в BubbleSortMethod() в качестве параметра мы передаем созданный нами объект класса MyArrayList.\r\n         * И через объект вызываем все методы, что нам нужны, чтоб не делать их статическими.\r\n         * Чтоб все было по красоте, нам нужно сделать метод sort(), где вызовем метод BubbleSortMethod() из класса BubbleSort\r\n         * У меня проблема с тем, какой параметр туда передать.\r\n         */\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Main.java b/src/Main.java
+--- a/src/Main.java	(revision 4c27d47f130aa16acdf3010a985cd0d7d6a862d0)
++++ b/src/Main.java	(date 1640884795906)
+@@ -1,4 +1,7 @@
++import org.w3c.dom.stylesheets.LinkStyle;
++
+ import java.util.ArrayList;
++import java.util.List;
+ 
+ public class Main {
+     public static void main(String[] args) {
+@@ -22,6 +25,9 @@
+ //        myList.clear();
+ //        System.out.println(myList);
+ 
++        List<Integer> myArrayList = new ArrayList<>();
++        myArrayList.sort(C);
++
+         MyArrayList<Integer> myList = new MyArrayList<>();
+ 
+         myList.add(1);
