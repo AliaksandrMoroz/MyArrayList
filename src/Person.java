@@ -1,13 +1,13 @@
 import java.util.Objects;
 
-public class Person {
+public class Person implements Comparable<Person> {
     private final int id;
     private final String name;
 
     public static int count = 1;
 
-    public Person(String name) {
-        this.id = count++;
+    public Person(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -17,6 +17,11 @@ public class Person {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        return (this.name).compareTo(o.name);
     }
 
     @Override
@@ -39,8 +44,6 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                '}'+"\n";
+        return "Person{" + "id = " + id + ", name = '" + name + '\'' + '}';
     }
 }

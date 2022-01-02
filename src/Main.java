@@ -1,71 +1,67 @@
+import java.util.TreeSet;
+
 public class Main {
     public static void main(String[] args) {
-//        MyList<String> myList = new MyArrayList<>();
-//        myList.add("Alex");
-//        myList.add("Vasya");
-//        myList.add("Yarik");
-//        myList.add("Vitya");
-//        System.out.println(myList);
-//        myList.sortPersonByName();
-//        System.out.println(myList);
-
-//        MyList<Character> characterMyList = new MyArrayList<>();
-//        characterMyList.add('a');
-//        characterMyList.add('w');
-//        characterMyList.add('c');
-//        characterMyList.add('m');
-//        characterMyList.add('a');
-//        characterMyList.add('r');
-//        System.out.println(characterMyList);
-//        characterMyList.sortPersonByName();
-//        System.out.println(characterMyList);
-
-//        MyArrayList<Person> personMyArrayList = new MyArrayList<>();
-//
-//        personMyArrayList.add( new Person("Ann"));
-//        personMyArrayList.add( new Person("Bob"));
-//        personMyArrayList.add( new Person("Vyasya"));
-//        personMyArrayList.add( new Person("Steeve"));
-//        personMyArrayList.add( new Person("Jordj"));
-//
-//        System.out.println(personMyArrayList);
-//
-//        personMyArrayList.sortPersonByName();
-//        System.out.println(personMyArrayList);
-
-
-//        MyList<Keeper> keeperMyArrayList = new MyArrayList<>();
-//
-//        keeperMyArrayList.add( new Keeper(1, "Anna"));
-//        keeperMyArrayList.add( new Keeper(2, "Doba"));
-//        keeperMyArrayList.add( new Keeper(3, "Sina"));
-//        keeperMyArrayList.add( new Keeper(4, "Wasua"));
-//        keeperMyArrayList.add( new Keeper(5, "Masua"));
-//        keeperMyArrayList.add( new Keeper(6, "Aasua"));
-//
-//        System.out.println(keeperMyArrayList);
-//        keeperMyArrayList.sortPersonByName();
-//        System.out.println(keeperMyArrayList);
-
-
-
-
 
         MyList<Integer> integerMyArrayList = new MyArrayList<>();
 
+        integerMyArrayList.add(12);
         integerMyArrayList.add(1);
-        integerMyArrayList.add(8);
-        integerMyArrayList.add(15);
-        integerMyArrayList.add(20);
-        integerMyArrayList.add(4);
+        integerMyArrayList.add(50);
+        integerMyArrayList.add(48);
+        integerMyArrayList.add(42);
 
         System.out.println(integerMyArrayList);
-//        integerMyArrayList.sortByToString();
-//        System.out.println(integerMyArrayList);
-
-        MyArrayList.BubbleSort bubbleSort = new MyArrayList.BubbleSort();
-        bubbleSort.bubbleSortMethod(integerMyArrayList);
+        integerMyArrayList.sort();
         System.out.println(integerMyArrayList);
+        System.out.println();
+
+
+        MyList<Double> doubleMyArrayList = new MyArrayList<>();
+
+        doubleMyArrayList.add(1.2);
+        doubleMyArrayList.add(1.0);
+        doubleMyArrayList.add(5.0);
+        doubleMyArrayList.add(4.8);
+        doubleMyArrayList.add(4.2);
+
+        System.out.println(doubleMyArrayList);
+        doubleMyArrayList.sort();
+        System.out.println(doubleMyArrayList);
+        System.out.println();
+
+        MyList<String> stringMyList = new MyArrayList<>();
+
+        stringMyList.add("Steve");
+        stringMyList.add("Vitya");
+        stringMyList.add("Ann");
+        stringMyList.add("Bob");
+
+        System.out.println(stringMyList);
+        stringMyList.sort();
+        System.out.println(stringMyList);
+        System.out.println();
+
+        MyList<Person> personMyList = new MyArrayList<>();
+
+        personMyList.add(new Person(1, "Steve"));
+        personMyList.add(new Person(2, "Vitya"));
+        personMyList.add(new Person(3, "Alex"));
+        personMyList.add(new Person(4, "Vasya"));
+        personMyList.add(new Person(5, "Nicolai"));
+
+        System.out.println(personMyList);
+        personMyList.sort();
+        System.out.println(personMyList);
+        System.out.println();
+
+        TreeSet<Person> personList = new TreeSet<>();
+        personList.add(new Person(9, "Steve"));
+        personList.add(new Person(12, "Vteve"));
+        personList.add(new Person(5, "Teve"));
+        personList.add(new Person(8, "Dteve"));
+
+        System.out.println(personList);
 
 
     }
