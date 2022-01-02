@@ -9,9 +9,8 @@ public class Keeper {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}' + "\n";
+        return "Keeper{" +
+                "name='" + name + '\'' +
+                '}'+"\n";
     }
 }
