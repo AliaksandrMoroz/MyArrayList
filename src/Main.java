@@ -22,11 +22,11 @@ public class Main {
 
         MyArrayList<Person> personMyArrayList = new MyArrayList<>();
 
-        personMyArrayList.add( new Person("Ann"));
-        personMyArrayList.add( new Person("Bob"));
-        personMyArrayList.add( new Person("Vyasya"));
-        personMyArrayList.add( new Person("Steeve"));
-        personMyArrayList.add( new Person("Jordj"));
+        personMyArrayList.add(new Person("Ann"));
+        personMyArrayList.add(new Person("Bob"));
+        personMyArrayList.add(new Person("Vasya"));
+        personMyArrayList.add(new Person("Steeve"));
+        personMyArrayList.add(new Person("Jordj"));
 
         System.out.println(personMyArrayList);
 
@@ -41,8 +41,8 @@ public class Main {
         integerMyArrayList.add(20);
         integerMyArrayList.add(4);
 
-
-       MyArrayList.bubbleSortMethod(integerMyArrayList);
+        System.out.println(integerMyArrayList);
+        MyArrayList.bubbleSortMethod(integerMyArrayList);
         System.out.println(integerMyArrayList);
 
 

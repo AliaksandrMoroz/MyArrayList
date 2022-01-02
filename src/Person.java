@@ -6,7 +6,7 @@ public class Person {
 
     public static int count = 1;
 
-    public Person( String name) {
+    public Person(String name) {
         this.id = count++;
         this.name = name;
     }
