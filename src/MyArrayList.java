@@ -1,4 +1,3 @@
-
 import java.util.Arrays;
 
 
@@ -200,7 +199,8 @@ public class MyArrayList<E> implements MyList<E> {      // Создаём пуб
         }
     }
 
-    public static void bubbleSortMethod(MyList<Integer> myArrayList) {      // Метод сортировки пузырьком для Integer
+    @Override
+    public void bubbleSortMethod(MyList<Integer> myArrayList) {      // Метод сортировки пузырьком для Integer
         for (int i = 1; i < myArrayList.size(); i++) {
             for (int j = 0; j < myArrayList.size() - 1; j++) {
                 if (myArrayList.get(j) > myArrayList.get(j + 1)) {

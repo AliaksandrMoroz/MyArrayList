@@ -42,7 +42,7 @@ public class Main {
         integerMyArrayList.add(4);
 
         System.out.println(integerMyArrayList);
-        MyArrayList.bubbleSortMethod(integerMyArrayList);
+        integerMyArrayList.bubbleSortMethod(integerMyArrayList);
         System.out.println(integerMyArrayList);
 
 
