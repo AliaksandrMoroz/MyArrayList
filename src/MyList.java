@@ -23,5 +23,5 @@ public interface MyList<E> {
 
     void sortByToString();              // Прописываем структуру метода, который ничего не возвращает. Метод сортирует список
 
-    void bubbleSortMethod(MyList<Integer> myArrayList);
+    void bubbleSortMethod(MyList<Integer> myArrayList); // пузырьковая сортировка
 }
