@@ -11,7 +11,7 @@ class MyArrayListTest {
     private MyArrayList<Integer> beforeMyArrayList;
     @BeforeEach
     public void createNewMyArrayList() {
-        beforeMyArrayList = new MyArrayList<>();
+        beforeMyArrayList = new MyArrayList<>(6);
         beforeMyArrayList.add(53);
         beforeMyArrayList.add(4);
         beforeMyArrayList.add(32);
@@ -25,6 +25,7 @@ class MyArrayListTest {
         MyArrayList testList = new MyArrayList();
         assertEquals(10, testList.getCapacity());
     }
+
 
     @Test
     void testConstructorShouldInstallFiveCapacity() {
@@ -40,18 +41,19 @@ class MyArrayListTest {
 
     @Test
     void testIncreaseCapacityShouldTripleIt(){
-        MyArrayList testList = new MyArrayList(2);
-        testList.add(5);
-        testList.add(5);
-        testList.add(5);
-        assertEquals(6,testList.getCapacity());
-    }
-    @Test
-    void remove() {
+        beforeMyArrayList.add(5);
+        assertEquals(18,beforeMyArrayList.getCapacity());
     }
 
     @Test
-    void size() {
+    void testRemoveShouldReduceMyArrayIndex(){
+        beforeMyArrayList.remove(1);
+        assertEquals(5,beforeMyArrayList.size());
+    }
+
+    @Test
+    void testSizeShouldReturnCountElementForMyArrayList() {
+        assertEquals(beforeMyArrayList.getArrayValueIndex(),beforeMyArrayList.size());
     }
 
     @Test

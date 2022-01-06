@@ -143,6 +143,10 @@ public class MyArrayList<E> implements MyList<E> {      // Создаём пуб
         return true;                                        // При успешном добавлении возвращаем true
     }
 
+    public E[] getArrayValue() {
+        return arrayValue;
+    }
+
     public int getArrayValueIndex() {
         return arrayValueIndex;
     }
