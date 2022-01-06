@@ -211,6 +211,10 @@ public class MyArrayList<E> implements MyList<E> {      // Создаём пуб
             }
         }
     }
+
+    public int getCapacity() {
+        return capacity;
+    }
 }
 
 
