@@ -13,7 +13,10 @@ public class MyArrayList<E> implements MyList<E> {      // Создаём пуб
         arrayValue = (E[]) new Object[capacity];        // Создаём новый массив, который относится к классу Object
     }
 
-    public MyArrayList(int capacity) {                  // Создаём конструктор,  в котором инициализируем переменную capacity, в параметры которого передаём значение capacity
+    public MyArrayList(int capacity) {// Создаём конструктор,  в котором инициализируем переменную capacity, в параметры которого передаём значение capacity
+        if (capacity <= 0) {
+            throw new IndexOutOfBoundsException();
+        }
         this.capacity = capacity;
         arrayValue = (E[]) new Object[capacity];        // Создаём новый массив, который относится к классу Object
     }
@@ -46,6 +49,7 @@ public class MyArrayList<E> implements MyList<E> {      // Создаём пуб
             } else {                                        // иначе
                 increaseCapacity();                         // Вызываем метод по увеличению длины массива
                 arrayValue[arrayValueIndex] = value;        // и в значение переменной arrayValue с индексом arrayValueIndex записываем значение value
+                arrayValueIndex++;                          // добавляем индекс записываем в счётчик
                 return true;                                // При успешном добавлении возвращаем true
             }
         }
@@ -53,8 +57,8 @@ public class MyArrayList<E> implements MyList<E> {      // Создаём пуб
 
 
     private void increaseCapacity() {                       // Создаём метод по увеличению массива
-        capacity *= 3;                                      // Увеличиваем длину массива в 3 раза
-        arrayValue = Arrays.copyOf(arrayValue, capacity);   // В переменную arrayValue копируем новый arrayValue и объём массива
+        this.capacity *= 3;                                      // Увеличиваем длину массива в 3 раза
+        this.arrayValue = Arrays.copyOf(this.arrayValue, this.capacity);   // В переменную arrayValue копируем новый arrayValue и объём массива
     }
 
 
@@ -139,6 +143,9 @@ public class MyArrayList<E> implements MyList<E> {      // Создаём пуб
         return true;                                        // При успешном добавлении возвращаем true
     }
 
+    public int getArrayValueIndex() {
+        return arrayValueIndex;
+    }
 
     @Override
     public E set(int index, E value) {                      // Переопределяем метод E set. Метод принимает index и объект класса Е(Object)
@@ -180,27 +187,20 @@ public class MyArrayList<E> implements MyList<E> {      // Создаём пуб
 
 
     public void sortByToString() {                              // Переопределяем метод sort для собственных классов и строковых значений
-        E[] personMyList = (E[]) new Object[this.arrayValueIndex]; // Создаём временный массив
-        for (int i = 0; i < this.arrayValueIndex; i++) {            // Переписиваем данные из внутреннего во временный массив
-            personMyList[i] = (E) this.arrayValue[i];
-        }
 
-        for (int i = 1; i < personMyList.length; i++) {             // Сортируем пузырьком по значению ToString
-            for (int k = 0; k < personMyList.length - 1; k++) {
-                if (personMyList[i].toString().compareToIgnoreCase(personMyList[k].toString()) < 0) {
-                    E temp = personMyList[i];
-                    personMyList[i] = (personMyList[k]);
-                    personMyList[k] = temp;
+        for (int i = 1; i < arrayValueIndex; i++) {             // Сортируем пузырьком по значению ToString
+            for (int k = 0; k < arrayValueIndex - 1; k++) {
+                if (arrayValue[i].toString().compareToIgnoreCase(arrayValue[k].toString()) < 0) {
+                    E temp = arrayValue[i];
+                    arrayValue[i] = (arrayValue[k]);
+                    arrayValue[k] = temp;
                 }
             }
-        }
-        for (int i = 0; i < this.arrayValueIndex; i++) {            // Переписываем из временного массива во внутренний массив
-            arrayValue[i] = (E) personMyList[i];
         }
     }
 
     @Override
-    public void bubbleSortMethod(MyList<Integer> myArrayList) {      // Метод сортировки пузырьком для Integer
+    public void bubbleSortMethod(MyList<Integer> myArrayList) {// Метод сортировки пузырьком для Integer
         for (int i = 1; i < myArrayList.size(); i++) {
             for (int j = 0; j < myArrayList.size() - 1; j++) {
                 if (myArrayList.get(j) > myArrayList.get(j + 1)) {

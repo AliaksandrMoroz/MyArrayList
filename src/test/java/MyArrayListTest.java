@@ -1,13 +1,17 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.omg.CORBA.portable.ApplicationException;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyArrayListTest {
-
+    private MyArrayList<Integer> beforeMyArrayList;
     @BeforeEach
-    public void createNewMyArrayList(){
-        MyArrayList<Integer> beforeMyArrayList = new MyArrayList<>();
+    public void createNewMyArrayList() {
+        beforeMyArrayList = new MyArrayList<>();
         beforeMyArrayList.add(53);
         beforeMyArrayList.add(4);
         beforeMyArrayList.add(32);
@@ -15,22 +19,33 @@ class MyArrayListTest {
         beforeMyArrayList.add(1);
         beforeMyArrayList.add(56);
     }
+
     @Test
-    void testEmptyConstructorShouldInstallDefaultCapacity(){
+    void testEmptyConstructorShouldInstallDefaultCapacity() {
         MyArrayList testList = new MyArrayList();
-        assertEquals(10,testList.getCapacity());
+        assertEquals(10, testList.getCapacity());
     }
+
     @Test
-    void testConstructorShouldInstallFiveCapacity(){
+    void testConstructorShouldInstallFiveCapacity() {
         MyArrayList testList = new MyArrayList(5);
-        assertEquals(5,testList.getCapacity());
+        assertEquals(5, testList.getCapacity());
     }
 
     @Test
-    void add() {
-
+    void testAddShouldAddedElement() {
+        beforeMyArrayList.add(15);
+        assertEquals(15,beforeMyArrayList.get(beforeMyArrayList.size()-1));
     }
 
+    @Test
+    void testIncreaseCapacityShouldTripleIt(){
+        MyArrayList testList = new MyArrayList(2);
+        testList.add(5);
+        testList.add(5);
+        testList.add(5);
+        assertEquals(6,testList.getCapacity());
+    }
     @Test
     void remove() {
     }
