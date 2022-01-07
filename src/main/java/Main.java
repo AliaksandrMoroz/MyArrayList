@@ -45,6 +45,16 @@ public class Main {
         integerMyArrayList.bubbleSortMethod(integerMyArrayList);
         System.out.println(integerMyArrayList);
 
+        MyLinkedList<Integer> integerMyLinkedList = new MyLinkedList();
+        integerMyLinkedList.addLast(1);
+        integerMyLinkedList.addLast(2);
+        integerMyLinkedList.addLast(5);
+        integerMyLinkedList.addLast(8);
+
+        integerMyLinkedList.print();
+        System.out.println();
+        integerMyLinkedList.bubbleSortInteger(integerMyLinkedList);
+        integerMyLinkedList.print();
 
     }
 }
