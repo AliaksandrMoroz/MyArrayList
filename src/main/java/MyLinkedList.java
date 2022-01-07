@@ -1,154 +1,137 @@
 import java.util.Arrays;
 
-public class MyLinkedList {
+public class MyLinkedList<E> {
+    private Node head;
+    private Node tail;
 
+    private boolean isEmpty() {
+        return head == null;
+    }
 
+    public void addFirst(E value) {
+        Node temp = new Node((Integer) value);
 
-
-    public class List {
-        private Node head;
-        private Node tail;
-
-        public List() {
-            head = null;
-            tail = null;
-        }
-
-        private boolean isEmpty() {
-            return head == null;
-        }
-
-        public void addFirst(int data) {
-            Node temp = new Node(data);
-
-            if (isEmpty())
-                tail = temp;
-            else
-                head.prev = temp;
-
-            temp.next = head;
-            head = temp;
-        }
-
-        public void addLast(int data) {
-            Node temp = new Node(data);
-            if (isEmpty())
-                head = temp;
-            else
-                tail.next = temp;
-
-            temp.prev = tail;
+        if (isEmpty())
             tail = temp;
+        else
+            head.prev = temp;
+
+        temp.next = head;
+        head = temp;
+    }
+
+    public void addLast(E value) {
+        Node temp = new Node((Integer) value);
+        if (isEmpty())
+            head = temp;
+        else
+            tail.next = temp;
+
+        temp.prev = tail;
+        tail = temp;
+    }
+
+    public void addByIndex(E value, int index) {
+        Node cur = head;
+        int c = 0;
+
+        while (cur != null && c != index) {
+            cur = cur.next;
+            c++;
         }
 
-        public void addByIndex(int data, int index) {
-            Node cur = head;
-            int c = 0;
+        Node temp = new Node((Integer) value);
 
-            while (cur != null && c != index) {
-                cur = cur.next;
-                c++;
-            }
+        cur.prev.next = temp;
+        temp.prev = cur.prev;
+        cur.prev = temp;
+        temp.next = cur;
+    }
 
-            Node temp = new Node(data);
+    public Node getByIndex(int index) {
+        Node cur = head;
+        int c = 0;
 
-            cur.prev.next = temp;
-            temp.prev = cur.prev;
-            cur.prev = temp;
-            temp.next = cur;
+        while (cur != null && c != index) {
+            cur = cur.next;
+            c++;
+        }
+        return cur;
+    }
+
+    public void removeFirst() {
+        Node temp = head;
+
+        if (head.next == null) {
+            tail = null;
+        } else
+            head.next.prev = null;
+        head = head.next;
+    }
+
+    public void removeLast() {
+        if (head.next == null)
+            head = null;
+        else
+            tail.prev.next = null;
+
+        tail = tail.prev;
+    }
+
+    public void removeAt(int key) {
+        Node cur = head;
+
+        while (cur.data != key) {
+            cur = cur.next;
+
+            if (cur == null)
+                return;
         }
 
-        public Node getByIndex (int index) {
-            Node cur = head;
-            int c = 0;
+        if (cur == head)
+            removeFirst();
+        else
+            cur.prev.next = cur.next;
 
-            while (cur != null && c != index) {
-                cur = cur.next;
-                c++;
-            }
-            return cur;
+        if (cur == tail)
+            removeLast();
+        else
+            cur.next.prev = cur.prev;
+    }
+
+    public int size() {
+        int length = 0;
+        Node cur = head;
+
+
+        while (cur != null) {
+            length++;
+            cur = cur.next;
         }
-
-        public void removeFirst() {
-            Node temp = head;
-
-            if (head.next == null) {
-                tail = null;
-            } else
-                head.next.prev = null;
-            head = head.next;
-        }
-
-        public void removeLast() {
-            if (head.next == null)
-                head = null;
-            else
-                tail.prev.next = null;
-
-            tail = tail.prev;
-        }
-
-        public void removeAt(int key) {
-            Node cur = head;
-
-            while (cur.data != key) {
-                cur = cur.next;
-
-                if (cur == null)
-                    return;
-            }
-
-            if (cur == head)
-                removeFirst();
-            else
-                cur.prev.next = cur.next;
-
-            if (cur == tail)
-                removeLast();
-            else
-                cur.next.prev = cur.prev;
-        }
-
-        public int length () {
-            int length=0;
-            Node cur = head;
+        return length;
+    }
 
 
-            while (cur != null) {
-                length++;
-                cur = cur.next;
-            }
-            return length;
-        }
-
-
-
-
-        public void sortirovka() {
-
-            int[] myArray = new int[length()];
-            Node cur = head;
-            int length = length();;
-
-            for (int i = 0; i < length; i++) {          //заполнение массива элементами листа
-                myArray[i] = cur.data;
-                cur = cur.next;
-            }
-            Arrays.sort(myArray);
-            cur=head;
-            for( int i =0; i<length; i++){
-                cur.data=myArray[i];
-                cur=cur.next;}                              // перезаписываем лист отсортировыными элементами
-        }
-
-        public void print() {
-            Node temp = head;
-
-            while (temp != null) {
-                System.out.println(temp.data);
-                temp = temp.next;
+    public void bubbleSortInteger(MyLinkedList<Integer> integerMyLinkedList) {
+        for (int i = 1; i < integerMyLinkedList.size(); i++) {
+            for (int j = 0; j < integerMyLinkedList.size() - 1; j++) {
+                if (integerMyLinkedList.getByIndex(j).getData() > integerMyLinkedList.getByIndex(j + 1).getData()) {
+                    int temp = integerMyLinkedList.getByIndex(j).getData();
+                    integerMyLinkedList.addByIndex(integerMyLinkedList.getByIndex(j + 1).getData(), j);
+                    integerMyLinkedList.addByIndex(temp,j+1);
+                }
             }
         }
     }
 
+    public void print() {
+        Node temp = head;
+
+        while (temp != null) {
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
+    }
 }
+
+
