@@ -1,9 +1,7 @@
-import java.util.Arrays;
-
 public class MyLinkedList<E> {
-    private Node head;
-    private Node tail;
-    private int arrayValueIndex = 0;
+    private Node<E> head;
+    private Node<E> tail;
+    private int arrayValueIndex;
     private E[] arrayValue;
 
 
@@ -24,7 +22,7 @@ public class MyLinkedList<E> {
 //    }
 
     public void add(E value) {                          // Метод добавления в конец списка MuLinkedList. Метод принимает объект класса Е(Object). Ничего не возвращает.
-        Node temp = new Node((Integer) value);              // Создаём новый узел
+        Node<E> temp = new Node<E>((Integer) value);              // Создаём новый узел
         if (isEmpty())                                      // Проверяем на наличие содержимого
             head = temp;                                    // в случае true присваиваем head-у временную переменную temp
         else                                                // иначе
@@ -32,6 +30,7 @@ public class MyLinkedList<E> {
 
         temp.prev = tail;                                   // ссылке temp.prev присавиваем переменную tail
         tail = temp;                                        // переменной tail присваеиваем значение temp
+        arrayValueIndex++;
     }
 
 //    public void addByIndex(E value, int index) {            // Метод добавления по индексу addByIndex. Метод принимает объект класса Е(Object) и целочисленное значение индекса. Ничего не возвращает.
@@ -51,8 +50,8 @@ public class MyLinkedList<E> {
 //        temp.next = cur;                                    // ссылке временного элемента на следующий элемент присваиваем текущему элементу
 //    }
 
-    public Node get(int index) {
-        Node cur = head;
+    public Node<E> get(int index) {
+        Node<E> cur = head;
         int c = 0;
 
         while (cur != null && c != index) {
@@ -62,68 +61,79 @@ public class MyLinkedList<E> {
         return cur;
     }
 
-    public void removeFirst() {
-        Node temp = head;
+    public boolean removeFirst() {
+        Node<E> temp = head;
 
         if (head.next == null) {
             tail = null;
         } else
             head.next.prev = null;
         head = head.next;
+        return true;
     }
 
-    public void removeLast() {
+    public boolean removeLast() {
         if (head.next == null)
             head = null;
         else
             tail.prev.next = null;
 
         tail = tail.prev;
+        return true;
     }
 
-    public void removeAt(int key) {
-        Node cur = head;
+    public boolean removeAt(int key) {
+        Node<E> cur = head;
 
         while (cur.data != key) {
             cur = cur.next;
 
             if (cur == null)
-                return;
+                return false;
         }
 
-        if (cur == head)
+        if (cur == head) {
             removeFirst();
-        else
+        } else {
             cur.prev.next = cur.next;
+        }
 
-        if (cur == tail)
+        if (cur == tail) {
             removeLast();
-        else
+        } else {
             cur.next.prev = cur.prev;
+        }
+
+        return true;
     }
 
     public int size() {
-        int length = 0;
-        Node cur = head;
 
-
+        Node<E> cur = head;
         while (cur != null) {
-            length++;
             cur = cur.next;
         }
-        return length;
+
+        return arrayValueIndex;
     }
 
-    public E set(int index, E value) {
+    public void set(int index, E value) {
+        Node<E> current = head;
+        Node<E> setNode = new Node<E>((Integer) value);
         if (index < 0 || index >= size()) {        // Если индекс меньше 0 или больше значения переменной arrayValueIndex
             throw new IndexOutOfBoundsException();          // то выбрасываем ошибку IndexOutOfBoundsException()
         }
-        if (value == null) {                                    // Если значение value равно ничего
-            throw new NullPointerException();               // то выбрасываем ошибку NullPointerException()
+        for (int j = 0; current!= null && j < size(); j++) {
+            current = current.next;
         }
-        E oldValue = arrayValue[index];
-        arrayValue[index] = value;
-        return oldValue;
+
+        if (current != null) {
+            current.data = (int) value;
+        }
+
+//        Node<E> temp = current.next;
+//        current.next = setNode;
+//        setNode.next = temp;
 
     }
 
@@ -141,12 +151,16 @@ public class MyLinkedList<E> {
     }
 
     public void print() {
-        Node temp = head;
+        Node<E> temp = head;
 
         while (temp != null) {
             System.out.println("{data = " + temp.data + ", next = " + temp.next + ", prev = " + temp.prev + "}");
             temp = temp.next;
         }
+    }
+
+    public int getArrayValueIndex() {
+        return arrayValueIndex;
     }
 
 }
