@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.omg.CORBA.portable.ApplicationException;
+//import org.omg.CORBA.portable.ApplicationException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MyArrayListTest {
     private MyArrayList<Integer> beforeMyArrayList;
+
+
     @BeforeEach
     public void createNewMyArrayList() {
         beforeMyArrayList = new MyArrayList<>(6);
@@ -37,30 +39,53 @@ class MyArrayListTest {
     }
 
     @Test
+    void testConstructorThrowsIndexOfBoundException() {
+        Throwable throwable = assertThrows(IndexOutOfBoundsException.class, () -> {
+            MyArrayList<Integer> integerMyArrayList = new MyArrayList<>(-1);
+            if (integerMyArrayList.getCapacity() <= 0) {
+                throw new IndexOutOfBoundsException();
+            }
+        });
+        assertEquals(IndexOutOfBoundsException.class, throwable.getClass());
+    }
+
+    @Test
     void testAddShouldAddedElement() {
         beforeMyArrayList.add(15);
-        assertEquals(15,beforeMyArrayList.get(beforeMyArrayList.size()-1));
+        assertEquals(15, beforeMyArrayList.get(beforeMyArrayList.size() - 1));
     }
 
     @Test
-    void testIncreaseCapacityShouldTripleIt(){
+    void testAddThrowsNullPointerException() {
+        Throwable exception = assertThrows(NullPointerException.class, () -> {
+            beforeMyArrayList.add(null);
+            if (beforeMyArrayList.get(0) == null) {
+                throw new NullPointerException();
+            }
+        });
+        assertEquals(NullPointerException.class, exception.getClass());
+    }
+
+    @Test
+    void testIncreaseCapacityShouldTripleIt() {
         beforeMyArrayList.add(5);
-        assertEquals(18,beforeMyArrayList.getCapacity());
+        assertEquals(18, beforeMyArrayList.getCapacity());
     }
 
     @Test
-    void testRemoveShouldReduceMyArrayIndex(){
+    void testRemoveShouldReduceMyArrayIndex() {
         beforeMyArrayList.remove(1);
-        assertEquals(5,beforeMyArrayList.size());
+        assertEquals(5, beforeMyArrayList.size());
     }
+
 
     @Test
     void testSizeShouldReturnCountElementForMyArrayList() {
-        assertEquals(beforeMyArrayList.getArrayValueIndex(),beforeMyArrayList.size());
+        assertEquals(beforeMyArrayList.getArrayValueIndex(), beforeMyArrayList.size());
     }
 
     @Test
-    void testRemoveShouldReturnFalseForValueNotFound(){
+    void testRemoveShouldReturnFalseForValueNotFound() {
         MyArrayList<String> testList = new MyArrayList(5);
         testList.add("test");
         testList.add("test");
@@ -69,7 +94,7 @@ class MyArrayListTest {
     }
 
     @Test
-    void testRemoveInValueShouldReturnTrue(){
+    void testRemoveInValueShouldReturnTrue() {
         MyArrayList<String> testList = new MyArrayList(5);
         testList.add("test");
         testList.add("alex");
@@ -78,74 +103,77 @@ class MyArrayListTest {
     }
 
     @Test
-    void testGetShouldReturnElement(){
-        assertEquals(32,beforeMyArrayList.get(2));
+    void testGetShouldReturnElement() {
+        assertEquals(32, beforeMyArrayList.get(2));
+    }
+
+
+    @Test
+    void testIndexOfShouldReturnNegativeOneForValueNotFound() {
+        assertEquals(-1, beforeMyArrayList.indexOf(1000));
     }
 
     @Test
-    void testIndexOfShouldReturnNegativeOneForValueNotFound(){
-        assertEquals(-1,beforeMyArrayList.indexOf(1000));
+    void testIndexOfShouldReturnIndexForCorrectValue() {
+        assertEquals(2, beforeMyArrayList.indexOf(32));
     }
 
     @Test
-    void testIndexOfShouldReturnIndexForCorrectValue(){
-        assertEquals(2,beforeMyArrayList.indexOf(32));
+    void testAddIndexAndValueShouldReturnTrue() {
+        assertTrue(beforeMyArrayList.add(3, 100));
     }
 
     @Test
-    void testAddIndexAndValueShouldReturnTrue(){
-        assertTrue(beforeMyArrayList.add(3,100));
-    }
-    @Test
-    void testAddIndexAndValueShouldInstallValueForIndex(){
-        beforeMyArrayList.add(3,100);
-        assertEquals(100,beforeMyArrayList.get(3));
+    void testAddIndexAndValueShouldInstallValueForIndex() {
+        beforeMyArrayList.add(3, 100);
+        assertEquals(100, beforeMyArrayList.get(3));
     }
 
     @Test
-    void testSetShouldReturnOldValue(){
-        assertEquals(32,beforeMyArrayList.set(2,100));
+    void testSetShouldReturnOldValue() {
+        assertEquals(32, beforeMyArrayList.set(2, 100));
     }
 
     @Test
-    void testSetShouldInstallValueForIndex(){
-        beforeMyArrayList.set(2,100);
-        assertEquals(100,beforeMyArrayList.get(2));
+    void testSetShouldInstallValueForIndex() {
+        beforeMyArrayList.set(2, 100);
+        assertEquals(100, beforeMyArrayList.get(2));
     }
 
     @Test
-    void testContainsShouldReturnFalseIfValueNotFound(){
+    void testContainsShouldReturnFalseIfValueNotFound() {
         assertFalse(beforeMyArrayList.contains(100));
     }
 
     @Test
-    void testContainsShouldReturnFalseIfValueNull(){
+    void testContainsShouldReturnFalseIfValueNull() {
         assertFalse(beforeMyArrayList.contains(null));
     }
 
     @Test
-    void testContainsShouldReturnTrueIfCorrectValue(){
+    void testContainsShouldReturnTrueIfCorrectValue() {
         assertTrue(beforeMyArrayList.contains(32));
     }
 
     @Test
-    void testIsEmptyShouldReturnTrueIfListEmpty(){
+    void testIsEmptyShouldReturnTrueIfListEmpty() {
         MyArrayList<String> testList = new MyArrayList(5);
         assertTrue(testList.isEmpty());
     }
 
     @Test
-    void testIsEmptyShouldReturnFalseIfListNotEmpty(){
+    void testIsEmptyShouldReturnFalseIfListNotEmpty() {
         assertFalse(beforeMyArrayList.isEmpty());
-    }
-    @Test
-    void testClearShouldDeleteAllElements(){
-        beforeMyArrayList.clear();
-        assertEquals(0,beforeMyArrayList.size());
     }
 
     @Test
-    void testSortByToStringShouldSortedList(){
+    void testClearShouldDeleteAllElements() {
+        beforeMyArrayList.clear();
+        assertEquals(0, beforeMyArrayList.size());
+    }
+
+    @Test
+    void testSortByToStringShouldSortedList() {
         List<String> testList = new ArrayList<>();
         testList.add("test");
         testList.add("Alex");
@@ -156,11 +184,11 @@ class MyArrayListTest {
         testMyList.add("Alex");
         testMyList.add("stop");
         testMyList.sortByToString();
-        assertArrayEquals(testList.toArray(),testMyList.getArrayValue());
+        assertArrayEquals(testList.toArray(), testMyList.getArrayValue());
     }
 
     @Test
-    void testBubbleSortMethodShouldSortedIntegerClass(){
+    void testBubbleSortMethodShouldSortedIntegerClass() {
         List<Integer> testList = new ArrayList<>();
         testList.add(53);
         testList.add(4);

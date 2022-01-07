@@ -1,5 +1,17 @@
+import java.util.LinkedList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
+
+        List<Integer> integerList = new LinkedList<>();
+        integerList.add(1);
+        integerList.add(5);
+        integerList.add(12);
+        integerList.add(8);
+
+        integerList.get(0);
+
         MyList<String> myList = new MyArrayList<>();
         myList.add("Alex");
         myList.add("Vasya");
@@ -44,7 +56,5 @@ public class Main {
         System.out.println(integerMyArrayList);
         integerMyArrayList.bubbleSortMethod(integerMyArrayList);
         System.out.println(integerMyArrayList);
-
-
     }
 }

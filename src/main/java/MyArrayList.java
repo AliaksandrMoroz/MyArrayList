@@ -7,6 +7,7 @@ public class MyArrayList<E> implements MyList<E> {      // Создаём пуб
     private E[] arrayValue;                             // Объявляем приватный внутренний массив класса Object (E)
     private int arrayValueIndex = 0;                    // Создаём переменную, которая в себе хранит индекс arrayValue[]. Объявляем приватную переменную целочисленного типа arrayValueIndex и значением 0
     private int capacity = 0;                           // Создаём переменную, которая хранит в себе длину массива. Объявляем приватную переменную целочисленного типа capacity и значением 0
+    int index;
 
     public MyArrayList() {                              // Создаём конструктор,  в котором инициализируем переменную DEFAULT_CAPACITY
         this.capacity = DEFAULT_CAPACITY;
@@ -83,9 +84,6 @@ public class MyArrayList<E> implements MyList<E> {      // Создаём пуб
 
     @Override
     public boolean remove(E value) {                        // Переопределяем метод remove. Метод принимает объект класса Е(Object)
-        if (value == null) {                                    // Проверяем переменную value на содержание
-            throw new NullPointerException();               // Если в ней ничего, то выбрасываем ошибку NullPointerException()
-        }                                                   // иначе
         int index = -1;                                     // присваиваем индексу -1
         for (int i = 0; i < arrayValueIndex; i++) {         // перебираем индексы
             if (value.equals(arrayValue[i])) {              // если значение объект класса Е(Object) совпадает с arrayValue[i]
