@@ -1,0 +1,547 @@
+Index: src/MyArrayList.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\r\nimport java.util.Arrays;\r\n\r\n\r\npublic class MyArrayList<E> implements MyList<E> {\r\n\r\n    private static final int DEFAULT_CAPACITY = 10;\r\n    private E[] arrayValue;\r\n    private int arrayValueIndex = 0;\r\n    private int capacity = 0;\r\n\r\n    public MyArrayList() {\r\n        this.capacity = DEFAULT_CAPACITY;\r\n        arrayValue = (E[]) new Object[capacity];\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        StringBuilder result = new StringBuilder(\"[\" + arrayValue[0]);\r\n\r\n        for (int i = 1; i < arrayValueIndex; i++) {\r\n            result.append(\", \").append(arrayValue[i]);\r\n        }\r\n        result.append(\"]\");\r\n        return result.toString();\r\n    }\r\n\r\n    @Override\r\n    public void add(E value) {\r\n\r\n        if (value == null) {\r\n            throw new NullPointerException();\r\n        } else {\r\n            if (arrayValueIndex < capacity) {\r\n                arrayValue[arrayValueIndex] = value;\r\n                arrayValueIndex++;\r\n            } else {\r\n                increaseCapacity();\r\n                arrayValue[arrayValueIndex] = value;\r\n            }\r\n        }\r\n    }\r\n\r\n    private void increaseCapacity() {\r\n        capacity *= 3;\r\n        arrayValue = Arrays.copyOf(arrayValue, capacity);\r\n    }\r\n\r\n    @Override\r\n    public void remove(int index) {\r\n        if (index < 0 || index >= arrayValueIndex) {\r\n            throw new IndexOutOfBoundsException();\r\n        }\r\n        for (int i = index + 1; i < arrayValueIndex; i++) {\r\n            arrayValue[i - 1] = arrayValue[i];\r\n        }\r\n        arrayValueIndex--;\r\n    }\r\n\r\n    @Override\r\n    public int size() {\r\n        return this.arrayValueIndex;\r\n    }\r\n\r\n    @Override\r\n    public boolean remove(E value) {\r\n        if (value == null) {\r\n            throw new NullPointerException();\r\n        }\r\n        int index = -1;\r\n        for (int i = 0; i < arrayValueIndex; i++) {\r\n            if (value.equals(arrayValue[i])) {\r\n                index = i;\r\n                break;\r\n            }\r\n        }\r\n        if (index != -1) {\r\n            remove(index);\r\n            return true;\r\n        }\r\n        return false;\r\n    }\r\n\r\n    @Override\r\n    public E get(int index) {\r\n        if (index < 0 || index >= arrayValueIndex) {\r\n            throw new IndexOutOfBoundsException();\r\n        }\r\n        return arrayValue[index];\r\n    }\r\n\r\n    @Override\r\n    public int indexOf(E value) {\r\n        if (value != null) {\r\n            for (int i = 0; i < arrayValueIndex; i++) {\r\n                if (arrayValue[i].equals(value)) {\r\n                    return i;\r\n                }\r\n            }\r\n            return -1;\r\n        }\r\n        return -1;\r\n    }\r\n\r\n    @Override\r\n    public boolean add(int index, E value) {\r\n        if (index < 0 || index > arrayValueIndex) {\r\n            throw new IndexOutOfBoundsException();\r\n        }\r\n        if (value == null) {\r\n            throw new NullPointerException();\r\n        }\r\n        if (arrayValueIndex >= capacity) {\r\n            increaseCapacity();\r\n        }\r\n        for (int i = arrayValueIndex; i > index; i--) {\r\n            arrayValue[i] = arrayValue[i - 1];\r\n        }\r\n        arrayValue[index] = value;\r\n        arrayValueIndex++;\r\n        return true;\r\n    }\r\n\r\n    @Override\r\n    public E set(int index, E value) {\r\n        if (index < 0 || index >= arrayValueIndex) {\r\n            throw new IndexOutOfBoundsException();\r\n        }\r\n        if (value == null) {\r\n            throw new NullPointerException();\r\n        }\r\n        E oldValue = arrayValue[index];\r\n        arrayValue[index] = value;\r\n        return oldValue;\r\n    }\r\n\r\n    @Override\r\n    public boolean contains(E value) {\r\n        if (value != null) {\r\n            for (int i = 0; i < arrayValueIndex; i++) {\r\n                if (arrayValue[i].equals(value)) {\r\n                    return true;\r\n                }\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n\r\n    @Override\r\n    public boolean isEmpty() {\r\n        return arrayValueIndex == 0;\r\n    }\r\n\r\n    @Override\r\n    public void clear() {\r\n        arrayValueIndex = 0;\r\n        arrayValue = (E[]) new Object[capacity];\r\n    }\r\n\r\n    @Override\r\n    public void sort() {\r\n        E[] temporaryArray = (E[]) new Object[this.arrayValueIndex];\r\n        for (int i = 0; i < this.arrayValueIndex; i++) {\r\n            temporaryArray[i] = (E) this.arrayValue[i];\r\n        }\r\n        for (int i = 1; i < temporaryArray.length; i++) {\r\n            for (int k = 0; k < temporaryArray.length - 1; k++) {\r\n                if (temporaryArray[i].toString().compareToIgnoreCase(temporaryArray[k].toString()) < 0) {\r\n                    E temp = temporaryArray[i];\r\n                    temporaryArray[i] = (temporaryArray[k]);\r\n                    temporaryArray[k] = temp;\r\n                }\r\n            }\r\n        }\r\n        for (int i = 0; i < this.arrayValueIndex; i++) {\r\n            arrayValue[i] = (E) temporaryArray[i];\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/MyArrayList.java b/src/MyArrayList.java
+--- a/src/MyArrayList.java	(revision fdddb6d0aabbb175ebb621cd21696da20c28391c)
++++ b/src/MyArrayList.java	(date 1641150252474)
+@@ -2,69 +2,80 @@
+ import java.util.Arrays;
+ 
+ 
+-public class MyArrayList<E> implements MyList<E> {
+ 
+-    private static final int DEFAULT_CAPACITY = 10;
+-    private E[] arrayValue;
+-    private int arrayValueIndex = 0;
+-    private int capacity = 0;
++public class MyArrayList<E> implements MyList<E> {      // Создаём публичный класс MyArrayList<E>, который реализует интерфейс MyList<E>
+ 
+-    public MyArrayList() {
++    private static final int DEFAULT_CAPACITY = 10;     // Создаём начальный размер массива. Объявляем приватную статическую конечную переменную целочисленного типа DEFAULT_CAPACITY с константным значением 10
++    private E[] arrayValue;                             // Объявляем приватный внутренний массив класса Object (E)
++    private int arrayValueIndex = 0;                    // Создаём переменную, которая в себе хранит индекс arrayValue[]. Объявляем приватную переменную целочисленного типа arrayValueIndex и значением 0
++    private int capacity = 0;                           // Создаём переменную, которая хранит в себе длину массива. Объявляем приватную переменную целочисленного типа capacity и значением 0
++
++    public MyArrayList() {                              // Создаём конструктор,  в котором инициализируем переменную DEFAULT_CAPACITY
+         this.capacity = DEFAULT_CAPACITY;
+-        arrayValue = (E[]) new Object[capacity];
++        arrayValue = (E[]) new Object[capacity];        // Создаём новый массив, который относится к классу Object
+     }
++
++    public MyArrayList(int capacity) {                  // Создаём конструктор,  в котором инициализируем переменную capacity, в параметры которого передаём значение capacity
++        this.capacity = capacity;
++        arrayValue = (E[]) new Object[capacity];        // Создаём новый массив, который относится к классу Object
++    }
++
+ 
+     @Override
+-    public String toString() {
+-        StringBuilder result = new StringBuilder("[" + arrayValue[0]);
++    public String toString() {                          // Переопределяем метод toString
++        String result = "[" + arrayValue[0];
+ 
+         for (int i = 1; i < arrayValueIndex; i++) {
+-            result.append(", ").append(arrayValue[i]);
++            result += ", " + arrayValue[i];
+         }
+-        result.append("]");
+-        return result.toString();
++        result += "]";
++        return result;
++
++
+     }
+ 
+     @Override
+-    public void add(E value) {
++    public boolean add(E value) {                           // Переопределяем метод add, который реализует метод MyList.
++        if (value == null) {                                // Проверяем переменную value на содержание
++            throw new NullPointerException();               // Если в ней ничего, то выбрасываем ошибку NullPointerException()
++        } else {                                            // иначе
+ 
+-        if (value == null) {
+-            throw new NullPointerException();
+-        } else {
+-            if (arrayValueIndex < capacity) {
+-                arrayValue[arrayValueIndex] = value;
+-                arrayValueIndex++;
+-            } else {
+-                increaseCapacity();
+-                arrayValue[arrayValueIndex] = value;
++            if (arrayValueIndex < capacity) {               // Если значение индекса arrayValueIndex меньше длины массива
++                arrayValue[arrayValueIndex] = value;        // то в значение переменной arrayValue с индексом arrayValueIndex записываем значение value
++                arrayValueIndex++;                          // индексы массива записываем в счётчик
++                return true;                                // При успешном добавлении возвращаем true
++            } else {                                        // иначе
++                increaseCapacity();                         // Вызываем метод по увеличению длины массива
++                arrayValue[arrayValueIndex] = value;        // и в значение переменной arrayValue с индексом arrayValueIndex записываем значение value
++                return true;                                // При успешном добавлении возвращаем true
+             }
+         }
+     }
+-
+-    private void increaseCapacity() {
+-        capacity *= 3;
+-        arrayValue = Arrays.copyOf(arrayValue, capacity);
++    private void increaseCapacity() {                       // Создаём метод по увеличению массива
++        capacity *= 3;                                      // Увеличиваем длину массива в 3 раза
++        arrayValue = Arrays.copyOf(arrayValue, capacity);   // В переменную arrayValue копируем новый arrayValue и объём массива
+     }
+ 
+     @Override
+-    public void remove(int index) {
+-        if (index < 0 || index >= arrayValueIndex) {
+-            throw new IndexOutOfBoundsException();
++    public boolean remove(int index) {                      // Переопределяем метод remove, который реализует метод MyList.
++        if (index < 0 || index >= arrayValueIndex) {        // Если индекс меньше 0 и больше либо равен переменной arrayValueIndex
++            throw new IndexOutOfBoundsException();          // то выбрасываем ошибку IndexOutOfBoundsException()
+         }
+         for (int i = index + 1; i < arrayValueIndex; i++) {
+             arrayValue[i - 1] = arrayValue[i];
+         }
+         arrayValueIndex--;
++        return true;
+     }
+ 
+     @Override
+-    public int size() {
++    public int size() {                                     // Переопределяем метод add, который реализует метод MyList.
+         return this.arrayValueIndex;
+     }
+ 
+     @Override
+-    public boolean remove(E value) {
+-        if (value == null) {
++    public boolean remove(E value) {                        // Переопределяем метод remove
++        if(value==null){                                    //
+             throw new NullPointerException();
+         }
+         int index = -1;
+@@ -82,7 +93,7 @@
+     }
+ 
+     @Override
+-    public E get(int index) {
++    public E get(int index) {                               // Переопределяем метод E get, который реализует метод MyList.
+         if (index < 0 || index >= arrayValueIndex) {
+             throw new IndexOutOfBoundsException();
+         }
+@@ -90,7 +101,7 @@
+     }
+ 
+     @Override
+-    public int indexOf(E value) {
++    public int indexOf(E value) {                           // Переопределяем метод indexOf, который реализует метод MyList.
+         if (value != null) {
+             for (int i = 0; i < arrayValueIndex; i++) {
+                 if (arrayValue[i].equals(value)) {
+@@ -103,11 +114,11 @@
+     }
+ 
+     @Override
+-    public boolean add(int index, E value) {
++    public boolean add(int index, E value) {                // Переопределяем метод add, который реализует метод MyList.
+         if (index < 0 || index > arrayValueIndex) {
+             throw new IndexOutOfBoundsException();
+         }
+-        if (value == null) {
++        if(value==null){
+             throw new NullPointerException();
+         }
+         if (arrayValueIndex >= capacity) {
+@@ -122,11 +133,11 @@
+     }
+ 
+     @Override
+-    public E set(int index, E value) {
++    public E set(int index, E value) {                      // Переопределяем метод E set, который реализует метод MyList.
+         if (index < 0 || index >= arrayValueIndex) {
+             throw new IndexOutOfBoundsException();
+         }
+-        if (value == null) {
++        if(value==null){
+             throw new NullPointerException();
+         }
+         E oldValue = arrayValue[index];
+@@ -135,7 +146,7 @@
+     }
+ 
+     @Override
+-    public boolean contains(E value) {
++    public boolean contains(E value) {                      // Переопределяем метод containes, который реализует метод MyList.
+         if (value != null) {
+             for (int i = 0; i < arrayValueIndex; i++) {
+                 if (arrayValue[i].equals(value)) {
+@@ -147,33 +158,53 @@
+     }
+ 
+     @Override
+-    public boolean isEmpty() {
++    public boolean isEmpty() {                              // Переопределяем метод isEmpty, который реализует метод MyList.
+         return arrayValueIndex == 0;
+     }
+ 
+     @Override
+-    public void clear() {
++    public void clear() {                                   // Переопределяем метод clear, который реализует метод MyList.
+         arrayValueIndex = 0;
+-        arrayValue = (E[]) new Object[capacity];
++        arrayValue=(E[]) new Object[capacity];
+     }
+ 
+     @Override
+-    public void sort() {
+-        E[] temporaryArray = (E[]) new Object[this.arrayValueIndex];
+-        for (int i = 0; i < this.arrayValueIndex; i++) {
+-            temporaryArray[i] = (E) this.arrayValue[i];
++    public void sort() {                                    // Переопределяем метод sort, который реализует метод MyList.
++        BubbleSort bubbleSort = new BubbleSort();
++//        bubbleSort.bubbleSortMethod();
++    }
++    public void sortPerson() {
++        Person[] personMyList= new Person[this.arrayValueIndex];
++        for (int i=0;i<this.arrayValueIndex;i++){
++            personMyList[i]=(Person) this.arrayValue[i];
+         }
+-        for (int i = 1; i < temporaryArray.length; i++) {
+-            for (int k = 0; k < temporaryArray.length - 1; k++) {
+-                if (temporaryArray[i].toString().compareToIgnoreCase(temporaryArray[k].toString()) < 0) {
+-                    E temp = temporaryArray[i];
+-                    temporaryArray[i] = (temporaryArray[k]);
+-                    temporaryArray[k] = temp;
++
++        for (int i = 1; i < personMyList.length; i++) {
++            for (int k = 0; k < personMyList.length-1; k++) {
++                if (personMyList[i].getName().compareToIgnoreCase(personMyList[k].getName()) < 0) {
++                    Person temp = personMyList[i];
++                    personMyList[i]=( personMyList[k]);
++                    personMyList[k]= temp;
+                 }
+             }
+         }
+-        for (int i = 0; i < this.arrayValueIndex; i++) {
+-            arrayValue[i] = (E) temporaryArray[i];
++        for (int i=0;i<this.arrayValueIndex;i++){
++            arrayValue[i]= (E) personMyList[i];
+         }
+     }
++
++    public static class BubbleSort {
++        public void bubbleSortMethod(MyArrayList<Integer> myArrayList) {
++            for( int i = 1; i < myArrayList.size(); i++) {
++                for( int j = 0; j < myArrayList.size() -1; j++) {
++                    if( myArrayList.get(j) > myArrayList.get(j+1)) {
++                        int temp = (int) myArrayList.get(j);
++                        myArrayList.set(j, myArrayList.get(j+1));
++                        myArrayList.set(j+1, temp);
++                    }
++                }
++            }
++        }
++    }
++
+ }
+Index: src/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.TreeSet;\r\n\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n\r\n        MyList<Integer> integerMyArrayList = new MyArrayList<>();\r\n\r\n        integerMyArrayList.add(12);\r\n        integerMyArrayList.add(1);\r\n        integerMyArrayList.add(50);\r\n        integerMyArrayList.add(48);\r\n        integerMyArrayList.add(42);\r\n\r\n        System.out.println(integerMyArrayList);\r\n        integerMyArrayList.sort();\r\n        System.out.println(integerMyArrayList);\r\n        System.out.println();\r\n\r\n\r\n        MyList<Double> doubleMyArrayList = new MyArrayList<>();\r\n\r\n        doubleMyArrayList.add(1.2);\r\n        doubleMyArrayList.add(1.0);\r\n        doubleMyArrayList.add(5.0);\r\n        doubleMyArrayList.add(4.8);\r\n        doubleMyArrayList.add(4.2);\r\n\r\n        System.out.println(doubleMyArrayList);\r\n        doubleMyArrayList.sort();\r\n        System.out.println(doubleMyArrayList);\r\n        System.out.println();\r\n\r\n        MyList<String> stringMyList = new MyArrayList<>();\r\n\r\n        stringMyList.add(\"Steve\");\r\n        stringMyList.add(\"Vitya\");\r\n        stringMyList.add(\"Ann\");\r\n        stringMyList.add(\"Bob\");\r\n\r\n        System.out.println(stringMyList);\r\n        stringMyList.sort();\r\n        System.out.println(stringMyList);\r\n        System.out.println();\r\n\r\n        MyList<Person> personMyList = new MyArrayList<>();\r\n\r\n        personMyList.add(new Person(1, \"Steve\"));\r\n        personMyList.add(new Person(2, \"Vitya\"));\r\n        personMyList.add(new Person(3, \"Alex\"));\r\n        personMyList.add(new Person(4, \"Vasya\"));\r\n        personMyList.add(new Person(5, \"Nicolai\"));\r\n\r\n        System.out.println(personMyList);\r\n        personMyList.sort();\r\n        System.out.println(personMyList);\r\n        System.out.println();\r\n\r\n        TreeSet<Person> personList = new TreeSet<>();\r\n        personList.add(new Person(9, \"Steve\"));\r\n        personList.add(new Person(12, \"Vteve\"));\r\n        personList.add(new Person(5, \"Teve\"));\r\n        personList.add(new Person(8, \"Dteve\"));\r\n\r\n        System.out.println(personList);\r\n\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Main.java b/src/Main.java
+--- a/src/Main.java	(revision fdddb6d0aabbb175ebb621cd21696da20c28391c)
++++ b/src/Main.java	(date 1641150252473)
+@@ -1,68 +1,75 @@
+-import java.util.TreeSet;
++import java.util.Collections;
++import java.util.Comparator;
+ 
+ public class Main {
+     public static void main(String[] args) {
+-
+-        MyList<Integer> integerMyArrayList = new MyArrayList<>();
++//        MyList<String> myList = new MyArrayList<>();
++//        myList.add("Alex");
++//        myList.add("Vasya");
++//        myList.add("Yarik");
++//        myList.add("Vitya");
++//        System.out.println(myList);
++//
++//
++//
++//        System.out.println(myList);
++//        System.out.println(myList.get(1));
++//        System.out.println(myList.add(0,"Adil"));
++//        System.out.println(myList);
++//        System.out.println(myList.set(3,"Svetlana"));
++//        System.out.println(myList);
++//        System.out.println(myList.contains("Alex"));
++//        System.out.println(myList.isEmpty());
++//        myList.clear();
++//        System.out.println(myList);
+ 
+-        integerMyArrayList.add(12);
+-        integerMyArrayList.add(1);
+-        integerMyArrayList.add(50);
+-        integerMyArrayList.add(48);
+-        integerMyArrayList.add(42);
++        MyArrayList<Person> personList = new MyArrayList<Person>();
++        personList.add(new Person("Alex"));
++        personList.add(new Person("Victor"));
++        personList.add(new Person("Vasilii"));
++        personList.add(new Person("Yaroslav"));
++        personList.add(new Person("Anna"));
++        personList.add(new Person("Kira"));
++        personList.add(new Person("Yura"));
++        personList.add(new Person("Richard"));
++        personList.add(new Person("hura"));
++        personList.add(new Person("Yura"));
++        personList.add(new Person("fura"));
++        personList.add(new Person("sura"));
++        personList.add(new Person("Aura"));
+ 
+-        System.out.println(integerMyArrayList);
+-        integerMyArrayList.sort();
+-        System.out.println(integerMyArrayList);
+-        System.out.println();
+ 
++        System.out.println(personList);
+ 
+-        MyList<Double> doubleMyArrayList = new MyArrayList<>();
+-
+-        doubleMyArrayList.add(1.2);
+-        doubleMyArrayList.add(1.0);
+-        doubleMyArrayList.add(5.0);
+-        doubleMyArrayList.add(4.8);
+-        doubleMyArrayList.add(4.2);
+-
+-        System.out.println(doubleMyArrayList);
+-        doubleMyArrayList.sort();
+-        System.out.println(doubleMyArrayList);
++        personList.sortPerson();
+         System.out.println();
+-
+-        MyList<String> stringMyList = new MyArrayList<>();
+-
+-        stringMyList.add("Steve");
+-        stringMyList.add("Vitya");
+-        stringMyList.add("Ann");
+-        stringMyList.add("Bob");
+-
+-        System.out.println(stringMyList);
+-        stringMyList.sort();
+-        System.out.println(stringMyList);
+         System.out.println();
+-
+-        MyList<Person> personMyList = new MyArrayList<>();
+-
+-        personMyList.add(new Person(1, "Steve"));
+-        personMyList.add(new Person(2, "Vitya"));
+-        personMyList.add(new Person(3, "Alex"));
+-        personMyList.add(new Person(4, "Vasya"));
+-        personMyList.add(new Person(5, "Nicolai"));
+-
+-        System.out.println(personMyList);
+-        personMyList.sort();
+-        System.out.println(personMyList);
+         System.out.println();
+-
+-        TreeSet<Person> personList = new TreeSet<>();
+-        personList.add(new Person(9, "Steve"));
+-        personList.add(new Person(12, "Vteve"));
+-        personList.add(new Person(5, "Teve"));
+-        personList.add(new Person(8, "Dteve"));
+-
+         System.out.println(personList);
+ 
+ 
++//
++//        MyArrayList<Integer> myList = new MyArrayList<>();
++//
++//        myList.add(1);
++//        myList.add(8);
++//        myList.add(15);
++//        myList.add(20);
++//        myList.add(4);
++//
++//        System.out.println(myList);
++//
++//        MyArrayList.BubbleSort bubbleSort = new MyArrayList.BubbleSort();
++//        bubbleSort.bubbleSortMethod(myList);
++//        System.out.println(myList);
++
++        /* От Вити, кароч, пришлось делать костыль, т.к. чтоб создать метод sort(), должны быть статическими методы size(), get(), set().
++         * Поэтому, я пошел с помощью внутренних классов, но вот проблема небольшая осталась.
++         * Суть: в BubbleSortMethod() в качестве параметра мы передаем созданный нами объект класса MyArrayList.
++         * И через объект вызываем все методы, что нам нужны, чтоб не делать их статическими.
++         * Чтоб все было по красоте, нам нужно сделать метод sort(), где вызовем метод BubbleSortMethod() из класса BubbleSort
++         * У меня проблема с тем, какой параметр туда передать.
++         */
++
+     }
+ }
+Index: src/MyList.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>public interface MyList<E> {\r\n    void add(E value);\r\n\r\n    void remove(int index);\r\n\r\n    int size();\r\n\r\n    boolean remove(E value);\r\n\r\n    E get(int index);\r\n\r\n    int indexOf(E value);\r\n\r\n    boolean add(int index, E value);\r\n\r\n    E set(int index, E value);\r\n\r\n    boolean contains(E value);\r\n\r\n    boolean isEmpty();\r\n\r\n    void clear();\r\n\r\n    void sort();\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/MyList.java b/src/MyList.java
+--- a/src/MyList.java	(revision fdddb6d0aabbb175ebb621cd21696da20c28391c)
++++ b/src/MyList.java	(date 1641150252475)
+@@ -1,25 +1,15 @@
+ public interface MyList<E> {
+-    void add(E value);
+-
+-    void remove(int index);
+-
+-    int size();
+-
+-    boolean remove(E value);
+-
+-    E get(int index);
+-
+-    int indexOf(E value);
+-
+-    boolean add(int index, E value);
++    boolean add(E value);           // Прописываем структуру метода, который возвращает boolean переменную при добавление элемента в список. Метод принимает объект класса Е(Object). При успешном добавлении возвращает true, если элемент добавить не удалось -- возвращает false.
++    boolean remove(int index);      // Прописываем структуру метода, который возвращает boolean переменную при удалении элемента из списка. Метод принимает целочисленный тип int переменной index. При успешном удалении возвращает true, если элемент удалить не удалось -- возвращает false.
++    int size();                     // Прописываем структуру метода, который возвращает int переменную размера списка.
++    boolean remove(E value);        // Прописываем структуру метода, который возвращает boolean переменную при удалении элемента из списка. Метод принимает объект класса Е(Object). При успешном удалении возвращает true, если элемент удалить не удалось -- возвращает false.
++    E get(int index);               // Прописываем структуру метода, который возвращает объект класса Е по входному индексу(index).
++    int indexOf(E value);           // Прописываем структуру метода, который возвращает int переменную индекса значения. Метод принимает объект класса Е(Object).
++    boolean add(int index, E value);// Прописываем структуру метода, который возвращает boolean переменную при добавление элемента в список. Метод принимает целочисленный тип int переменной index и объект класса Е(Object). При успешном добавлении возвращает true, если элемент добавить не удалось -- возвращает false.
++    E set(int index, E value);      // Прописываем структуру метода, который возвращает объект класса Е по входному целочисленному индексу(index) и объекту класса Е(Object).
++    boolean contains(E value);      // Прописываем структуру метода, который возвращает boolean переменную при сравнении элемента в списке. Метод принимает объект класса Е(Object). При успешном сравнении возвращает true, если элемент найти не удалось -- возвращает false.
++    boolean isEmpty();              // Прописываем структуру метода, который возвращает boolean переменную при проверке элемента по индексу в списке. При успешном проверке возвращает true, если элемент индекса найти не удалось -- возвращает false.
++    void clear();                   // Прописываем структуру метода, который ничего не возвращает. Метод очищает список.
++    void sort();                    // Прописываем структуру метода, который ничего не возвращает. Метод сортирует список.
+ 
+-    E set(int index, E value);
+-
+-    boolean contains(E value);
+-
+-    boolean isEmpty();
+-
+-    void clear();
+-
+-    void sort();
+ }
+Index: src/Person.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.Objects;\r\n\r\npublic class Person implements Comparable<Person> {\r\n    private final int id;\r\n    private final String name;\r\n\r\n    public static int count = 1;\r\n\r\n    public Person(int id, String name) {\r\n        this.id = id;\r\n        this.name = name;\r\n    }\r\n\r\n    public String getName() {\r\n        return name;\r\n    }\r\n\r\n    public int getId() {\r\n        return id;\r\n    }\r\n\r\n    @Override\r\n    public int compareTo(Person o) {\r\n        return (this.name).compareTo(o.name);\r\n    }\r\n\r\n    @Override\r\n    public boolean equals(Object o) {\r\n        if (this == o) return true;\r\n        if (o == null || getClass() != o.getClass()) return false;\r\n\r\n        Person person = (Person) o;\r\n\r\n        if (id != person.id) return false;\r\n        return Objects.equals(name, person.name);\r\n    }\r\n\r\n    @Override\r\n    public int hashCode() {\r\n        int result = id;\r\n        result = 31 * result + (name != null ? name.hashCode() : 0);\r\n        return result;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"Person{\" + \"id = \" + id + \", name = '\" + name + '\\'' + '}';\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Person.java b/src/Person.java
+--- a/src/Person.java	(revision fdddb6d0aabbb175ebb621cd21696da20c28391c)
++++ b/src/Person.java	(date 1641150252476)
+@@ -1,29 +1,19 @@
+-import java.util.Objects;
++public class Person {
++    private  int id;
++    private String name;
+ 
+-public class Person implements Comparable<Person> {
+-    private final int id;
+-    private final String name;
++    public static int coint=1;
+ 
+-    public static int count = 1;
+-
+-    public Person(int id, String name) {
+-        this.id = id;
++    public Person(String name) {
++        this.id=coint++;
+         this.name = name;
+     }
+ 
++
+     public String getName() {
+         return name;
+     }
+ 
+-    public int getId() {
+-        return id;
+-    }
+-
+-    @Override
+-    public int compareTo(Person o) {
+-        return (this.name).compareTo(o.name);
+-    }
+-
+     @Override
+     public boolean equals(Object o) {
+         if (this == o) return true;
+@@ -32,7 +22,7 @@
+         Person person = (Person) o;
+ 
+         if (id != person.id) return false;
+-        return Objects.equals(name, person.name);
++        return name != null ? name.equals(person.name) : person.name == null;
+     }
+ 
+     @Override
+@@ -44,6 +34,20 @@
+ 
+     @Override
+     public String toString() {
+-        return "Person{" + "id = " + id + ", name = '" + name + '\'' + '}';
++        return "Person{" +
++                "id=" + id +
++                ", name='" + name + '\'' +
++                '}'+"\n";
++    }
++
++    public int getId() {
++        return id;
++    }
++
++    public int compareTo(Person o) {
++//        return this.id-o.id;
++//        return this.name.length()-o.name.length();
++        return this.name.compareToIgnoreCase(o.name);
++
+     }
+ }
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_01_01_2022_18_43_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_01_01_2022_18_43_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_01_01_2022_18_43_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_01_01_2022_18_43_[Changes]/shelved.patch	(revision fdddb6d0aabbb175ebb621cd21696da20c28391c)
++++ /dev/null	(revision fdddb6d0aabbb175ebb621cd21696da20c28391c)
+@@ -1,28 +0,0 @@
+-Index: src/Main.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>import java.util.ArrayList;\r\n\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n//        MyList<String> myList = new MyArrayList<>();\r\n//        myList.add(\"Alex\");\r\n//        myList.add(\"Vasya\");\r\n//        myList.add(\"Yarik\");\r\n//        myList.add(\"Vitya\");\r\n//        System.out.println(myList);\r\n//\r\n//\r\n//\r\n//        System.out.println(myList);\r\n//        System.out.println(myList.get(1));\r\n//        System.out.println(myList.add(0,\"Adil\"));\r\n//        System.out.println(myList);\r\n//        System.out.println(myList.set(3,\"Svetlana\"));\r\n//        System.out.println(myList);\r\n//        System.out.println(myList.contains(\"Alex\"));\r\n//        System.out.println(myList.isEmpty());\r\n//        myList.clear();\r\n//        System.out.println(myList);\r\n\r\n        MyArrayList<Integer> myList = new MyArrayList<>();\r\n\r\n        myList.add(1);\r\n        myList.add(8);\r\n        myList.add(15);\r\n        myList.add(20);\r\n        myList.add(4);\r\n\r\n        System.out.println(myList);\r\n\r\n        MyArrayList.BubbleSort bubbleSort = new MyArrayList.BubbleSort();\r\n        bubbleSort.BubbleSortMethod(myList);\r\n        System.out.println(myList);\r\n\r\n        /* От Вити, кароч, пришлось делать костыль, т.к. чтоб создать метод sort(), должны быть статическими методы size(), get(), set().\r\n         * Поэтому, я пошел с помощью внутренних классов, но вот проблема небольшая осталась.\r\n         * Суть: в BubbleSortMethod() в качестве параметра мы передаем созданный нами объект класса MyArrayList.\r\n         * И через объект вызываем все методы, что нам нужны, чтоб не делать их статическими.\r\n         * Чтоб все было по красоте, нам нужно сделать метод sort(), где вызовем метод BubbleSortMethod() из класса BubbleSort\r\n         * У меня проблема с тем, какой параметр туда передать.\r\n         */\r\n\r\n    }\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/Main.java b/src/Main.java
+---- a/src/Main.java	(revision 4c27d47f130aa16acdf3010a985cd0d7d6a862d0)
+-+++ b/src/Main.java	(date 1640884795906)
+-@@ -1,4 +1,7 @@
+-+import org.w3c.dom.stylesheets.LinkStyle;
+-+
+- import java.util.ArrayList;
+-+import java.util.List;
+- 
+- public class Main {
+-     public static void main(String[] args) {
+-@@ -22,6 +25,9 @@
+- //        myList.clear();
+- //        System.out.println(myList);
+- 
+-+        List<Integer> myArrayList = new ArrayList<>();
+-+        myArrayList.sort(C);
+-+
+-         MyArrayList<Integer> myList = new MyArrayList<>();
+- 
+-         myList.add(1);
