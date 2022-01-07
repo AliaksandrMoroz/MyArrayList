@@ -57,23 +57,32 @@ public class Main {
 //        integerMyArrayList.bubbleSortMethod(integerMyArrayList);
 //        System.out.println(integerMyArrayList);
 
-        MyLinkedList<Integer> list = new MyLinkedList<>();
-        list.add(0);
-        list.add(2);
-        list.add(1);
+        MyLinkedList<String> list = new MyLinkedList<>();
+//        list.add(0);
+//        list.add(2);
+//        list.add(7);
+//        list.add(8);
+//        list.add(122);
+//        list.add(11);
+//        list.add(-15);
+//        list.add(-23);
+//        list.add(40);
+        list.add("stri");
+        list.add("rtri");
+        list.add("htri");
+        list.add("dstri");
+        list.add("jtri");
+        list.add("rttri");
+        list.add("fdsgtri");
+        list.add("atri");
         System.out.println(list.size());
         System.out.println(list.getArrayValueIndex());
+        System.out.println(list);
+        list.sort();
+        System.out.println("___________");
+        System.out.println(list);
 
-        list.set(1, 5);
-        list.print();
 
-        List<Integer> list2 = new LinkedList<>();
-        list2.add(1);
-        list2.add(2);
-        list2.add(42);
-        list2.add(20);
-
-        list2.set(0,50);
 
     }
 }

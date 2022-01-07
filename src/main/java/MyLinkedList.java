@@ -1,28 +1,21 @@
-public class MyLinkedList<E> {
+public class MyLinkedList<E extends Comparable> {
     private Node<E> head;
     private Node<E> tail;
     private int arrayValueIndex;
     private E[] arrayValue;
 
 
-    private boolean isEmpty() {                             // Метод isEmpty
+    boolean isEmpty() {                             // Метод isEmpty
         return head == null;                                // проверяем не равен ли head null-у
     }
 
-//    public void addFirst(E value) {                         // Метод добавления в начало списка MuLinkedList. Метод принимает объект класса Е(Object). Ничего не возвращает.
-//        Node temp = new Node((Integer) value);              // Создаём новый узел
-//
-//        if (isEmpty())                                      // Проверяем на наличие содержимого
-//            tail = temp;                                    // в случае true присваиваем tail-у временную переменную temp
-//        else                                                // иначе
-//            head.prev = temp;                               // ссылке на предыдущий элемент head.prev присваиваем временную переменную temp
-//
-//        temp.next = head;                                   // ссылке temp.next присавиваем переменную head
-//        head = temp;                                        // переменной head присваеиваем значение temp
-//    }
+    boolean hasOnlyOneItem() {
+        return head.next == null;
+    }
+
 
     public void add(E value) {                          // Метод добавления в конец списка MuLinkedList. Метод принимает объект класса Е(Object). Ничего не возвращает.
-        Node<E> temp = new Node<E>((Integer) value);              // Создаём новый узел
+        Node<E> temp = new Node<E>((E) value);              // Создаём новый узел
         if (isEmpty())                                      // Проверяем на наличие содержимого
             head = temp;                                    // в случае true присваиваем head-у временную переменную temp
         else                                                // иначе
@@ -33,22 +26,6 @@ public class MyLinkedList<E> {
         arrayValueIndex++;
     }
 
-//    public void addByIndex(E value, int index) {            // Метод добавления по индексу addByIndex. Метод принимает объект класса Е(Object) и целочисленное значение индекса. Ничего не возвращает.
-//        Node cur = head;                                    // Текущий элемент Node
-//        int c = 0;                                          // объявляем временную целочисленную переменную для учёта индекса
-//
-//        while (cur != null && c != index) {                 // Пока текущий элемент не равен null-у и с не равно индексу
-//            cur = cur.next;                                 // Текущему значени. присваиваем следующее значение
-//            c++;                                            // Индекс также добавляем
-//        }
-//
-//        Node temp = new Node((Integer) value);              // Создаём новый узел
-//
-//        cur.prev.next = temp;                               // текущий элемент и ссылка на предыдущий и на следующий элементы приравниваем к временному элементу temp
-//        temp.prev = cur.prev;                               // ссылке временного элемента на предыдущий элемент присваиваем текущий элемент на предыдущий элемент
-//        cur.prev = temp;                                    // ссылке текущему элементу на предыдущий элемент присваиваем временную переменную temp
-//        temp.next = cur;                                    // ссылке временного элемента на следующий элемент присваиваем текущему элементу
-//    }
 
     public Node<E> get(int index) {
         Node<E> cur = head;
@@ -82,10 +59,10 @@ public class MyLinkedList<E> {
         return true;
     }
 
-    public boolean removeAt(int key) {
+    public boolean removeAt(E key) {
         Node<E> cur = head;
 
-        while (cur.data != key) {
+        while (!cur.data.equals(key)) {
             cur = cur.next;
 
             if (cur == null)
@@ -117,46 +94,41 @@ public class MyLinkedList<E> {
         return arrayValueIndex;
     }
 
-    public void set(int index, E value) {
-        Node<E> current = head;
-        Node<E> setNode = new Node<E>((Integer) value);
-        if (index < 0 || index >= size()) {        // Если индекс меньше 0 или больше значения переменной arrayValueIndex
-            throw new IndexOutOfBoundsException();          // то выбрасываем ошибку IndexOutOfBoundsException()
+
+    void sort() {
+        if (hasOnlyOneItem()) {
+            return;
         }
-        for (int j = 0; current!= null && j < size(); j++) {
-            current = current.next;
-        }
-
-        if (current != null) {
-            current.data = (int) value;
-        }
-
-//        Node<E> temp = current.next;
-//        current.next = setNode;
-//        setNode.next = temp;
-
-    }
-
-
-    public void bubbleSortInteger(MyLinkedList<Integer> integerMyLinkedList) {
-        for (int i = 1; i < integerMyLinkedList.size(); i++) {
-            for (int j = 0; j < integerMyLinkedList.size() - 1; j++) {
-                if (integerMyLinkedList.get(j).getData() > integerMyLinkedList.get(j + 1).getData()) {
-                    int temp = integerMyLinkedList.get(j).getData();
-                    integerMyLinkedList.set(j, integerMyLinkedList.get(j + 1).getData());
-                    integerMyLinkedList.set(j+1, temp);
+        Node tmp;
+        boolean isSorted = false;
+        while (!isSorted) {
+            isSorted = true;
+            tmp = head;
+            while (tmp.next != null) {
+                if (tmp.data.compareTo(tmp.next.data) > 0) {
+                    tmp.swap(tmp.next);
+                    isSorted = false;
+                } else if (tmp.data.compareTo(tmp.next.data) == 0 && tmp.data.compareTo(tmp.next.data) > 0) {
+                    tmp.swap(tmp.next);
+                    isSorted = false;
+                } else {
+                    tmp = tmp.next;
                 }
             }
         }
     }
 
-    public void print() {
+    @Override
+    public String toString() {
         Node<E> temp = head;
-
+        String result = "[";
         while (temp != null) {
-            System.out.println("{data = " + temp.data + ", next = " + temp.next + ", prev = " + temp.prev + "}");
+            result += temp.data + ", ";
             temp = temp.next;
         }
+        result = result.substring(0, result.length() - 2);
+        result += "]";
+        return result;
     }
 
     public int getArrayValueIndex() {
