@@ -4,48 +4,48 @@ public class MyLinkedList<E> {
     private Node head;
     private Node tail;
 
-    private boolean isEmpty() {
-        return head == null;
+    private boolean isEmpty() {                             // Метод isEmpty
+        return head == null;                                // проверяем не равен ли head null-у
     }
 
-    public void addFirst(E value) {
-        Node temp = new Node((Integer) value);
+    public void addFirst(E value) {                         // Метод добавления в начало списка MuLinkedList. Метод принимает объект класса Е(Object). Ничего не возвращает.
+        Node temp = new Node((Integer) value);              // Создаём новый узел
 
-        if (isEmpty())
-            tail = temp;
-        else
-            head.prev = temp;
+        if (isEmpty())                                      // Проверяем на наличие содержимого
+            tail = temp;                                    // в случае true присваиваем tail-у временную переменную temp
+        else                                                // иначе
+            head.prev = temp;                               // ссылке на предыдущий элемент head.prev присваиваем временную переменную temp
 
-        temp.next = head;
-        head = temp;
+        temp.next = head;                                   // ссылке temp.next присавиваем переменную head
+        head = temp;                                        // переменной head присваеиваем значение temp
     }
 
-    public void addLast(E value) {
-        Node temp = new Node((Integer) value);
-        if (isEmpty())
-            head = temp;
-        else
-            tail.next = temp;
+    public void addLast(E value) {                          // Метод добавления в конец списка MuLinkedList. Метод принимает объект класса Е(Object). Ничего не возвращает.
+        Node temp = new Node((Integer) value);              // Создаём новый узел
+        if (isEmpty())                                      // Проверяем на наличие содержимого
+            head = temp;                                    // в случае true присваиваем head-у временную переменную temp
+        else                                                // иначе
+            tail.next = temp;                               // ссылке на следующий элемент tail.next присваиваем временную переменную temp
 
-        temp.prev = tail;
-        tail = temp;
+        temp.prev = tail;                                   // ссылке temp.prev присавиваем переменную tail
+        tail = temp;                                        // переменной tail присваеиваем значение temp
     }
 
-    public void addByIndex(E value, int index) {
-        Node cur = head;
-        int c = 0;
+    public void addByIndex(E value, int index) {            // Метод добавления по индексу addByIndex. Метод принимает объект класса Е(Object) и целочисленное значение индекса. Ничего не возвращает.
+        Node cur = head;                                    // Текущий элемент Node
+        int c = 0;                                          // объявляем временную целочисленную переменную для учёта индекса
 
-        while (cur != null && c != index) {
-            cur = cur.next;
-            c++;
+        while (cur != null && c != index) {                 // Пока текущий элемент не равен null-у и с не равно индексу
+            cur = cur.next;                                 // Текущему значени. присваиваем следующее значение
+            c++;                                            // Индекс также добавляем
         }
 
-        Node temp = new Node((Integer) value);
+        Node temp = new Node((Integer) value);              // Создаём новый узел
 
-        cur.prev.next = temp;
-        temp.prev = cur.prev;
-        cur.prev = temp;
-        temp.next = cur;
+        cur.prev.next = temp;                               // текущий элемент и ссылка на предыдущий и на следующий элементы приравниваем к временному элементу temp
+        temp.prev = cur.prev;                               // ссылке временного элемента на предыдущий элемент присваиваем текущий элемент на предыдущий элемент
+        cur.prev = temp;                                    // ссылке текущему элементу на предыдущий элемент присваиваем временную переменную temp
+        temp.next = cur;                                    // ссылке временного элемента на следующий элемент присваиваем текущему элементу
     }
 
     public Node getByIndex(int index) {
