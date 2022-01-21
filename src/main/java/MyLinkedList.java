@@ -2,8 +2,6 @@ public class MyLinkedList<E extends Comparable> {
     private Node<E> head;
     private Node<E> tail;
     private int arrayValueIndex;
-    private E[] arrayValue;
-
 
     boolean isEmpty() {                             // Метод isEmpty
         return head == null;                                // проверяем не равен ли head null-у
@@ -15,12 +13,11 @@ public class MyLinkedList<E extends Comparable> {
 
 
     public void add(E value) {                          // Метод добавления в конец списка MuLinkedList. Метод принимает объект класса Е(Object). Ничего не возвращает.
-        Node<E> temp = new Node<E>((E) value);              // Создаём новый узел
+        Node<E> temp = new Node<>(value);              // Создаём новый узел
         if (isEmpty())                                      // Проверяем на наличие содержимого
             head = temp;                                    // в случае true присваиваем head-у временную переменную temp
         else                                                // иначе
             tail.next = temp;                               // ссылке на следующий элемент tail.next присваиваем временную переменную temp
-
         temp.prev = tail;                                   // ссылке temp.prev присавиваем переменную tail
         tail = temp;                                        // переменной tail присваеиваем значение temp
         arrayValueIndex++;
@@ -39,8 +36,7 @@ public class MyLinkedList<E extends Comparable> {
     }
 
     public boolean removeFirst() {
-        Node<E> temp = head;
-
+//        Node<E> temp = head;
         if (head.next == null) {
             tail = null;
         } else
@@ -54,17 +50,14 @@ public class MyLinkedList<E extends Comparable> {
             head = null;
         else
             tail.prev.next = null;
-
         tail = tail.prev;
         return true;
     }
 
     public boolean removeAt(E key) {
         Node<E> cur = head;
-
         while (!cur.data.equals(key)) {
             cur = cur.next;
-
             if (cur == null)
                 return false;
         }
@@ -80,7 +73,6 @@ public class MyLinkedList<E extends Comparable> {
         } else {
             cur.next.prev = cur.prev;
         }
-
         return true;
     }
 
@@ -90,7 +82,6 @@ public class MyLinkedList<E extends Comparable> {
         while (cur != null) {
             cur = cur.next;
         }
-
         return arrayValueIndex;
     }
 
@@ -99,7 +90,7 @@ public class MyLinkedList<E extends Comparable> {
         if (hasOnlyOneItem()) {
             return;
         }
-        Node tmp;
+        Node<E> tmp;
         boolean isSorted = false;
         while (!isSorted) {
             isSorted = true;
@@ -121,20 +112,19 @@ public class MyLinkedList<E extends Comparable> {
     @Override
     public String toString() {
         Node<E> temp = head;
-        String result = "[";
+        StringBuilder result = new StringBuilder("[");
         while (temp != null) {
-            result += temp.data + ", ";
+            result.append(temp.data).append(", ");
             temp = temp.next;
         }
-        result = result.substring(0, result.length() - 2);
-        result += "]";
-        return result;
+        result = new StringBuilder(result.substring(0, result.length() - 2));
+        result.append("]");
+        return result.toString();
     }
 
     public int getArrayValueIndex() {
         return arrayValueIndex;
     }
-
 }
 
 

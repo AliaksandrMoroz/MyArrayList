@@ -1,13 +1,11 @@
 import java.util.Arrays;
 
-
 public class MyArrayList<E> implements MyList<E> {      // Создаём публичный класс MyArrayList<E>, который реализует интерфейс MyList<E>
 
     private static final int DEFAULT_CAPACITY = 10;     // Создаём начальный размер массива. Объявляем приватную статическую конечную переменную целочисленного типа DEFAULT_CAPACITY с константным значением 10
     private E[] arrayValue;                             // Объявляем приватный внутренний массив класса Object (E)
     private int arrayValueIndex = 0;                    // Создаём переменную, которая в себе хранит индекс arrayValue[]. Объявляем приватную переменную целочисленного типа arrayValueIndex и значением 0
     private int capacity = 0;                           // Создаём переменную, которая хранит в себе длину массива. Объявляем приватную переменную целочисленного типа capacity и значением 0
-    int index;
 
     public MyArrayList() {                              // Создаём конструктор,  в котором инициализируем переменную DEFAULT_CAPACITY
         this.capacity = DEFAULT_CAPACITY;
@@ -25,13 +23,13 @@ public class MyArrayList<E> implements MyList<E> {      // Создаём пуб
 
     @Override
     public String toString() {                          // Переопределяем метод toString
-        String result = "[" + arrayValue[0];
+        StringBuilder result = new StringBuilder("[" + arrayValue[0]);
 
         for (int i = 1; i < arrayValueIndex; i++) {
-            result += ", " + arrayValue[i];
+            result.append(", ").append(arrayValue[i]);
         }
-        result += "]";
-        return result;
+        result.append("]");
+        return result.toString();
 
 
     }
@@ -206,7 +204,7 @@ public class MyArrayList<E> implements MyList<E> {      // Создаём пуб
         for (int i = 1; i < myArrayList.size(); i++) {
             for (int j = 0; j < myArrayList.size() - 1; j++) {
                 if (myArrayList.get(j) > myArrayList.get(j + 1)) {
-                    int temp = (int) myArrayList.get(j);
+                    int temp = myArrayList.get(j);
                     myArrayList.set(j, myArrayList.get(j + 1));
                     myArrayList.set(j + 1, temp);
                 }

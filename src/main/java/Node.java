@@ -9,7 +9,7 @@ public class Node<E extends Comparable> {
     public Node(E data) {
         this.data = data;
     }
-    public Node(E info, Node prev, Node next) {
+    public Node(E info, Node<E> prev, Node<E> next) {
         this.data = info;
         this.prev = prev;
         this.next = next;
@@ -18,8 +18,6 @@ public class Node<E extends Comparable> {
     public E getData() {
         return data;
     }
-
-
 
     public Node<E> getNext() {
         return next;
@@ -35,17 +33,16 @@ public class Node<E extends Comparable> {
     }
     @Override
     public boolean equals(Object o) {
-        Node in = (Node) o;
+        Node<E> in = (Node<E>) o;
         return this.data.equals(in.data);
     }
 
-    void swap(Node b) {
+    void swap(Node<E> b) {
         //swapping info
         E tmp = this.data;
         this.data = (E) b.data;
         b.data = tmp;
     }
-
 }
 
 
